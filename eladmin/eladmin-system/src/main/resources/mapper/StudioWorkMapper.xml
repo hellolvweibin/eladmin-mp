@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.studio.mapper.StudioWorkMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioWork">
+        <id column="work_id" property="workId"/>
+        <result column="work_name" property="workName"/>
+        <result column="work_nameC" property="workNamec"/>
+        <result column="work_type" property="workType"/>
+        <result column="work_des" property="workDes"/>
+        <result column="work_desC" property="workDesc"/>
+        <result column="work_client" property="workClient"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        work_id, work_name, work_nameC, work_type, work_des, work_desC, work_client, create_time, update_time
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_work
+        <where>
+        </where>
+        order by work_id desc
+    </select>
+</mapper>

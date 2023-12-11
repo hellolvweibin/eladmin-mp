@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.studio.mapper.StudioWorkStaffMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioWorkStaff">
+        <id column="id" property="id"/>
+        <result column="work_id" property="workId"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="staff_tag" property="staffTag"/>
+        <result column="staff_name" property="staffName"/>
+        <result column="staff_nameC" property="staffNamec"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, work_id, staff_id, staff_tag, staff_name, staff_nameC
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_work_staff
+        <where>
+        </where>
+        order by id desc
+    </select>
+</mapper>

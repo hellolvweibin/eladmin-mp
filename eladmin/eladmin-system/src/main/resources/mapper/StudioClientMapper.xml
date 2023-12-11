@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.studio.mapper.StudioClientMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioClient">
+        <id column="client_id" property="clientId"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_nameC" property="clientNamec"/>
+        <result column="client_tag" property="clientTag"/>
+        <result column="client_phone" property="clientPhone"/>
+        <result column="client_mail" property="clientMail"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        client_id, client_name, client_nameC, client_tag, client_phone, client_mail, create_time, update_time
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_client
+        <where>
+        </where>
+        order by client_id desc
+    </select>
+</mapper>

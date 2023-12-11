@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.studio.mapper.StudioCoverMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioCover">
+        <id column="cover_id" property="coverId"/>
+        <result column="cover_image" property="coverImage"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cover_id, cover_image
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_cover
+        <where>
+            <if test="criteria.coverId != null">
+                and cover_id = #{criteria.coverId}
+            </if>
+        </where>
+        order by cover_id desc
+    </select>
+</mapper>

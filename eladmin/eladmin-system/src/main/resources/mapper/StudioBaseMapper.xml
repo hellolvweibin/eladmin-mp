@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.studio.mapper.StudioBaseMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioBase">
+        <id column="studio_id" property="studioId"/>
+        <result column="studio_name" property="studioName"/>
+        <result column="studio_nameC" property="studioNamec"/>
+        <result column="studio_des" property="studioDes"/>
+        <result column="studio_desC" property="studioDesc"/>
+        <result column="studio_loc" property="studioLoc"/>
+        <result column="studio_locC" property="studioLocc"/>
+        <result column="studio_locLon" property="studioLoclon"/>
+        <result column="studio_locLat" property="studioLoclat"/>
+        <result column="studio_mail" property="studioMail"/>
+        <result column="studio_ig" property="studioIg"/>
+        <result column="studio_red" property="studioRed"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        studio_id, studio_name, studio_nameC, studio_des, studio_desC, studio_loc, studio_locC, studio_locLon, studio_locLat, studio_mail, studio_ig, studio_red, create_time, update_time
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_base
+        <where>
+        </where>
+        order by studio_id desc
+    </select>
+</mapper>

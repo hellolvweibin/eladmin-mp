@@ -81,7 +81,7 @@ public class StudioStaffServiceImpl extends ServiceImpl<StudioStaffMapper, Studi
         for (StudioStaff studioStaff : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("员工英文名", studioStaff.getStaffName());
-            map.put("员工中文名", studioStaff.getStaffNamec());
+            map.put("员工中文名", studioStaff.getStaffNameC());
             map.put("员工性别（0、未知，1、男，2、女）", studioStaff.getStaffSex());
             map.put("员工工作室id", studioStaff.getStaffStudioId());
             map.put("创建日期", studioStaff.getCreateTime());

@@ -45,7 +45,7 @@ public class StudioClient implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "客户中文名")
-    private String clientNamec;
+    private String clientNameC;
 
     @ApiModelProperty(value = "客户标签（用&拼接）")
     private String clientTag;

@@ -53,7 +53,7 @@ public class StudioWorkStaff implements Serializable {
     private String staffName;
 
     @ApiModelProperty(value = "成员中文名")
-    private String staffNamec;
+    private String staffNameC;
 
     public void copy(StudioWorkStaff source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

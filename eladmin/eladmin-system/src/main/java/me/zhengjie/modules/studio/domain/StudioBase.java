@@ -45,7 +45,7 @@ public class StudioBase implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "工作室中文名")
-    private String studioNamec;
+    private String studioNameC;
 
     @ApiModelProperty(value = "工作室英文描述")
     private String studioDes;
@@ -57,13 +57,13 @@ public class StudioBase implements Serializable {
     private String studioLoc;
 
     @ApiModelProperty(value = "工作室中文地址")
-    private String studioLocc;
+    private String studioLocC;
 
     @ApiModelProperty(value = "工作室经度")
-    private Double studioLoclon;
+    private Double studioLocLon;
 
     @ApiModelProperty(value = "工作室纬度")
-    private Double studioLoclat;
+    private Double studioLocLat;
 
     @ApiModelProperty(value = "工作室邮箱")
     private String studioMail;

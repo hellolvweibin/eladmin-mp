@@ -81,13 +81,13 @@ public class StudioBaseServiceImpl extends ServiceImpl<StudioBaseMapper, StudioB
         for (StudioBase studioBase : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("工作室英文名", studioBase.getStudioName());
-            map.put("工作室中文名", studioBase.getStudioNamec());
+            map.put("工作室中文名", studioBase.getStudioNameC());
             map.put("工作室英文描述", studioBase.getStudioDes());
             map.put("工作室中文描述", studioBase.getStudioDesc());
             map.put("工作室英文地址", studioBase.getStudioLoc());
-            map.put("工作室中文地址", studioBase.getStudioLocc());
-            map.put("工作室经度", studioBase.getStudioLoclon());
-            map.put("工作室纬度", studioBase.getStudioLoclat());
+            map.put("工作室中文地址", studioBase.getStudioLocC());
+            map.put("工作室经度", studioBase.getStudioLocLon());
+            map.put("工作室纬度", studioBase.getStudioLocLat());
             map.put("工作室邮箱", studioBase.getStudioMail());
             map.put("工作室ig", studioBase.getStudioIg());
             map.put("工作室小红书", studioBase.getStudioRed());

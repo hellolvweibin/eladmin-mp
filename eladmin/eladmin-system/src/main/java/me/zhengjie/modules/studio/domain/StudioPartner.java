@@ -44,7 +44,7 @@ public class StudioPartner implements Serializable {
     private String partnerName;
 
     @ApiModelProperty(value = "合作商中文名")
-    private String partnerNamec;
+    private String partnerNameC;
 
     @ApiModelProperty(value = "合作商标签（用&拼接）")
     private String partnerTag;

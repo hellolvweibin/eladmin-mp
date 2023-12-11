@@ -44,7 +44,7 @@ public class StudioStaff implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "员工中文名")
-    private String staffNamec;
+    private String staffNameC;
 
     @ApiModelProperty(value = "员工性别（0、未知，1、男，2、女）")
     private Integer staffSex;

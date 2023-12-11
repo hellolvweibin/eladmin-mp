@@ -81,7 +81,7 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
         for (StudioWork studioWork : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("作品英文名", studioWork.getWorkName());
-            map.put("作品中文名", studioWork.getWorkNamec());
+            map.put("作品中文名", studioWork.getWorkNameC());
             map.put("作品类别", studioWork.getWorkType());
             map.put("作品英文描述", studioWork.getWorkDes());
             map.put("作品中文描述", studioWork.getWorkDesc());

@@ -81,7 +81,7 @@ public class StudioPartnerServiceImpl extends ServiceImpl<StudioPartnerMapper, S
         for (StudioPartner studioPartner : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("合作商英文名", studioPartner.getPartnerName());
-            map.put("合作商中文名", studioPartner.getPartnerNamec());
+            map.put("合作商中文名", studioPartner.getPartnerNameC());
             map.put("合作商标签（用&拼接）", studioPartner.getPartnerTag());
             map.put("合作商手机号", studioPartner.getPartnerPhone());
             map.put("合作商邮箱", studioPartner.getPartnerMail());

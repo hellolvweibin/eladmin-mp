@@ -81,7 +81,7 @@ public class StudioClientServiceImpl extends ServiceImpl<StudioClientMapper, Stu
         for (StudioClient studioClient : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("客户英文名", studioClient.getClientName());
-            map.put("客户中文名", studioClient.getClientNamec());
+            map.put("客户中文名", studioClient.getClientNameC());
             map.put("客户标签（用&拼接）", studioClient.getClientTag());
             map.put("客户手机号", studioClient.getClientPhone());
             map.put("客户邮箱", studioClient.getClientMail());

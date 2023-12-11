@@ -41,7 +41,7 @@ public class StudioWork implements Serializable {
     private String workName;
 
     @ApiModelProperty(value = "作品中文名")
-    private String workNamec;
+    private String workNameC;
 
     @ApiModelProperty(value = "作品类别")
     private String workType;

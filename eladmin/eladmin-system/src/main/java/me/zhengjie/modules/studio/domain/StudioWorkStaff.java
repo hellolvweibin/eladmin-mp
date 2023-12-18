@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,7 +35,7 @@ import javax.validation.constraints.NotNull;
 @TableName("studio_work_staff")
 public class StudioWorkStaff implements Serializable {
 
-    @TableId(value = "id")
+    @TableId(value = "id",type = IdType.AUTO)
     @ApiModelProperty(value = "记录id")
     private Long id;
 

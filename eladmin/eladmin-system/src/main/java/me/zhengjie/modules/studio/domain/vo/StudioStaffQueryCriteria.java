@@ -23,4 +23,7 @@ import lombok.Data;
 **/
 @Data
 public class StudioStaffQueryCriteria{
+    private Long staffId;
+    private String staffName;
+    private String staffNameC;
 }

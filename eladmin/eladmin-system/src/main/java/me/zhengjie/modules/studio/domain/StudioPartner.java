@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,6 +25,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -33,9 +35,9 @@ import javax.validation.constraints.NotBlank;
 **/
 @Data
 @TableName("studio_partner")
-public class StudioPartner implements Serializable {
+public class StudioPartner extends Base implements Serializable {
 
-    @TableId(value = "partner_id")
+    @TableId(value = "partner_id",type = IdType.AUTO)
     @ApiModelProperty(value = "合作商id")
     private Long partnerId;
 
@@ -52,14 +54,11 @@ public class StudioPartner implements Serializable {
     @ApiModelProperty(value = "合作商手机号")
     private String partnerPhone;
 
+    @Email
     @ApiModelProperty(value = "合作商邮箱")
     private String partnerMail;
 
-    @ApiModelProperty(value = "创建日期")
-    private Timestamp createTime;
 
-    @ApiModelProperty(value = "更新时间")
-    private Timestamp updateTime;
 
     public void copy(StudioPartner source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,7 +33,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("studio_cover")
 public class StudioCover implements Serializable {
 
-    @TableId(value = "cover_id")
+    @TableId(value = "cover_id",type = IdType.AUTO)
     @ApiModelProperty(value = "轮播图id")
     private Integer coverId;
 

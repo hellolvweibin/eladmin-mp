@@ -23,4 +23,5 @@ import lombok.Data;
 **/
 @Data
 public class StudioBaseQueryCriteria{
+    private Long  studioId;
 }

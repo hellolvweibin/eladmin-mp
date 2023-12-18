@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioPartner;
 import me.zhengjie.modules.studio.service.StudioPartnerService;
@@ -47,7 +48,7 @@ public class StudioPartnerController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioPartner:list')")
+    @AnonymousAccess
     public void exportStudioPartner(HttpServletResponse response, StudioPartnerQueryCriteria criteria) throws IOException {
         studioPartnerService.download(studioPartnerService.queryAll(criteria), response);
     }
@@ -55,7 +56,7 @@ public class StudioPartnerController {
     @GetMapping
     @Log("查询工作室合作商")
     @ApiOperation("查询工作室合作商")
-    @PreAuthorize("@el.check('studioPartner:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioPartner>> queryStudioPartner(StudioPartnerQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioPartnerService.queryAll(criteria,page),HttpStatus.OK);
     }
@@ -63,7 +64,7 @@ public class StudioPartnerController {
     @PostMapping
     @Log("新增工作室合作商")
     @ApiOperation("新增工作室合作商")
-    @PreAuthorize("@el.check('studioPartner:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioPartner(@Validated @RequestBody StudioPartner resources){
         studioPartnerService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +73,7 @@ public class StudioPartnerController {
     @PutMapping
     @Log("修改工作室合作商")
     @ApiOperation("修改工作室合作商")
-    @PreAuthorize("@el.check('studioPartner:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioPartner(@Validated @RequestBody StudioPartner resources){
         studioPartnerService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +82,7 @@ public class StudioPartnerController {
     @DeleteMapping
     @Log("删除工作室合作商")
     @ApiOperation("删除工作室合作商")
-    @PreAuthorize("@el.check('studioPartner:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioPartner(@RequestBody List<Long> ids) {
         studioPartnerService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

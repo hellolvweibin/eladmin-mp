@@ -18,11 +18,14 @@ package me.zhengjie.modules.studio.mapper;
 import me.zhengjie.modules.studio.domain.StudioWork;
 import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
 import java.util.List;
+
+import me.zhengjie.modules.system.domain.Job;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Select;
 
 /**
 * @author lv
@@ -30,6 +33,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 **/
 @Mapper
 public interface StudioWorkMapper extends BaseMapper<StudioWork> {
+    @Select("select work_id from studio_work where name = #{name}")
+    StudioWork findByName(@Param("name") String name);
 
     IPage<StudioWork> findAll(@Param("criteria") StudioWorkQueryCriteria criteria, Page<Object> page);
 

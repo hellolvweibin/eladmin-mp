@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioStaff">
         <id column="staff_id" property="staffId"/>
         <result column="staff_name" property="staffName"/>
-        <result column="staff_nameC" property="staffNamec"/>
+        <result column="staff_name_c" property="staffNameC"/>
         <result column="staff_sex" property="staffSex"/>
         <result column="staff_studio_id" property="staffStudioId"/>
         <result column="create_time" property="createTime"/>
@@ -12,7 +12,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        staff_id, staff_name, staff_nameC, staff_sex, staff_studio_id, create_time, update_time
+        staff_id, staff_name, staff_name_c, staff_sex, staff_studio_id, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -20,6 +20,12 @@
         <include refid="Base_Column_List"/>
         from studio_staff
         <where>
+            <if test="criteria.staffName != null and criteria.staffName != ''">
+                and name like concat('%', #{criteria.staffName}, '%')
+            </if>
+            <if test="criteria.staffNameC != null and criteria.staffNameC != ''">
+                and name like concat('%', #{criteria.staffNameC}, '%')
+            </if>
         </where>
         order by staff_id desc
     </select>

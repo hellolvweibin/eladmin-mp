@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioPartner">
         <id column="partner_id" property="partnerId"/>
         <result column="partner_name" property="partnerName"/>
-        <result column="partner_nameC" property="partnerNamec"/>
+        <result column="partner_nameC" property="partnerNameC"/>
         <result column="partner_tag" property="partnerTag"/>
         <result column="partner_phone" property="partnerPhone"/>
         <result column="partner_mail" property="partnerMail"/>

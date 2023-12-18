@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioAward;
 import me.zhengjie.modules.studio.service.StudioAwardService;
@@ -47,7 +48,7 @@ public class StudioAwardController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioAward:list')")
+    @AnonymousAccess
     public void exportStudioAward(HttpServletResponse response, StudioAwardQueryCriteria criteria) throws IOException {
         studioAwardService.download(studioAwardService.queryAll(criteria), response);
     }
@@ -55,15 +56,16 @@ public class StudioAwardController {
     @GetMapping
     @Log("查询工作室奖项")
     @ApiOperation("查询工作室奖项")
-    @PreAuthorize("@el.check('studioAward:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioAward>> queryStudioAward(StudioAwardQueryCriteria criteria, Page<Object> page){
+        System.out.println(page);
         return new ResponseEntity<>(studioAwardService.queryAll(criteria,page),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增工作室奖项")
     @ApiOperation("新增工作室奖项")
-    @PreAuthorize("@el.check('studioAward:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioAward(@Validated @RequestBody StudioAward resources){
         studioAwardService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +74,7 @@ public class StudioAwardController {
     @PutMapping
     @Log("修改工作室奖项")
     @ApiOperation("修改工作室奖项")
-    @PreAuthorize("@el.check('studioAward:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioAward(@Validated @RequestBody StudioAward resources){
         studioAwardService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +83,7 @@ public class StudioAwardController {
     @DeleteMapping
     @Log("删除工作室奖项")
     @ApiOperation("删除工作室奖项")
-    @PreAuthorize("@el.check('studioAward:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioAward(@RequestBody List<Integer> ids) {
         studioAwardService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

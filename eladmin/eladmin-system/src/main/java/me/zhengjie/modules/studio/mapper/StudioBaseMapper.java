@@ -31,7 +31,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 @Mapper
 public interface StudioBaseMapper extends BaseMapper<StudioBase> {
 
+    List<StudioBase> selectAll();
+
     IPage<StudioBase> findAll(@Param("criteria") StudioBaseQueryCriteria criteria, Page<Object> page);
 
     List<StudioBase> findAll(@Param("criteria") StudioBaseQueryCriteria criteria);
+
 }

@@ -4,17 +4,17 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioWork">
         <id column="work_id" property="workId"/>
         <result column="work_name" property="workName"/>
-        <result column="work_nameC" property="workNamec"/>
+        <result column="work_name_c" property="workNameC"/>
         <result column="work_type" property="workType"/>
         <result column="work_des" property="workDes"/>
-        <result column="work_desC" property="workDesc"/>
+        <result column="work_des_c" property="workDesC"/>
         <result column="work_client" property="workClient"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        work_id, work_name, work_nameC, work_type, work_des, work_desC, work_client, create_time, update_time
+        work_id, work_name, work_name_c, work_type, work_des, work_des_c, work_client, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -22,6 +22,12 @@
         <include refid="Base_Column_List"/>
         from studio_work
         <where>
+            <if test="criteria.workName != null and criteria.workName != ''">
+                and name like concat('%', #{criteria.workName}, '%')
+            </if>
+            <if test="criteria.workNameC != null and criteria.workNameC != ''">
+                and name like concat('%', #{criteria.workNameC}, '%')
+            </if>
         </where>
         order by work_id desc
     </select>

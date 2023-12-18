@@ -15,15 +15,15 @@
 */
 package me.zhengjie.modules.studio.domain;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
 import java.sql.Timestamp;
 import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -33,9 +33,9 @@ import javax.validation.constraints.NotBlank;
 **/
 @Data
 @TableName("studio_base")
-public class StudioBase implements Serializable {
+public class StudioBase extends Base implements Serializable {
 
-    @TableId(value = "studio_id")
+    @TableId(value = "studio_id",type = IdType.AUTO)
     @ApiModelProperty(value = "工作室id")
     private Long studioId;
 
@@ -51,7 +51,7 @@ public class StudioBase implements Serializable {
     private String studioDes;
 
     @ApiModelProperty(value = "工作室中文描述")
-    private String studioDesc;
+    private String studioDesC;
 
     @ApiModelProperty(value = "工作室英文地址")
     private String studioLoc;
@@ -65,6 +65,7 @@ public class StudioBase implements Serializable {
     @ApiModelProperty(value = "工作室纬度")
     private Double studioLocLat;
 
+    @Email
     @ApiModelProperty(value = "工作室邮箱")
     private String studioMail;
 
@@ -74,11 +75,7 @@ public class StudioBase implements Serializable {
     @ApiModelProperty(value = "工作室小红书")
     private String studioRed;
 
-    @ApiModelProperty(value = "创建日期")
-    private Timestamp createTime;
 
-    @ApiModelProperty(value = "更新时间")
-    private Timestamp updateTime;
 
     public void copy(StudioBase source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

@@ -56,6 +56,11 @@ public class StudioBaseServiceImpl extends ServiceImpl<StudioBaseMapper, StudioB
     }
 
     @Override
+    public List<StudioBase> selectAll() {
+        return studioBaseMapper.selectAll();
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void create(StudioBase resources) {
         save(resources);
@@ -83,7 +88,7 @@ public class StudioBaseServiceImpl extends ServiceImpl<StudioBaseMapper, StudioB
             map.put("工作室英文名", studioBase.getStudioName());
             map.put("工作室中文名", studioBase.getStudioNameC());
             map.put("工作室英文描述", studioBase.getStudioDes());
-            map.put("工作室中文描述", studioBase.getStudioDesc());
+            map.put("工作室中文描述", studioBase.getStudioDesC());
             map.put("工作室英文地址", studioBase.getStudioLoc());
             map.put("工作室中文地址", studioBase.getStudioLocC());
             map.put("工作室经度", studioBase.getStudioLocLon());
@@ -91,8 +96,6 @@ public class StudioBaseServiceImpl extends ServiceImpl<StudioBaseMapper, StudioB
             map.put("工作室邮箱", studioBase.getStudioMail());
             map.put("工作室ig", studioBase.getStudioIg());
             map.put("工作室小红书", studioBase.getStudioRed());
-            map.put("创建日期", studioBase.getCreateTime());
-            map.put("更新时间", studioBase.getUpdateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

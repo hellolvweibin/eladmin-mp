@@ -23,7 +23,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.utils.PageResult;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
 * @description 服务接口
@@ -31,6 +33,12 @@ import me.zhengjie.utils.PageResult;
 * @date 2023-12-11
 **/
 public interface StudioWorkService extends IService<StudioWork> {
+    /**
+     * 根据id查询作品信息
+     * @param id 条件
+     * @return StudioWork
+     */
+    StudioWork findById(Long id);
 
     /**
     * 查询数据分页
@@ -46,6 +54,7 @@ public interface StudioWorkService extends IService<StudioWork> {
     * @return List<StudioWorkDto>
     */
     List<StudioWork> queryAll(StudioWorkQueryCriteria criteria);
+
 
     /**
     * 创建

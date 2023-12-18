@@ -85,8 +85,6 @@ public class StudioClientServiceImpl extends ServiceImpl<StudioClientMapper, Stu
             map.put("客户标签（用&拼接）", studioClient.getClientTag());
             map.put("客户手机号", studioClient.getClientPhone());
             map.put("客户邮箱", studioClient.getClientMail());
-            map.put("创建日期", studioClient.getCreateTime());
-            map.put("更新时间", studioClient.getUpdateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

@@ -46,6 +46,11 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
     private final StudioWorkMapper studioWorkMapper;
 
     @Override
+    public StudioWork findById(Long id) {
+        return getById(id);
+    }
+
+    @Override
     public PageResult<StudioWork> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page){
         return PageUtil.toPage(studioWorkMapper.findAll(criteria, page));
     }
@@ -84,10 +89,8 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
             map.put("作品中文名", studioWork.getWorkNameC());
             map.put("作品类别", studioWork.getWorkType());
             map.put("作品英文描述", studioWork.getWorkDes());
-            map.put("作品中文描述", studioWork.getWorkDesc());
+            map.put("作品中文描述", studioWork.getWorkDesC());
             map.put("作品客户", studioWork.getWorkClient());
-            map.put("创建日期", studioWork.getCreateTime());
-            map.put("更新时间", studioWork.getUpdateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

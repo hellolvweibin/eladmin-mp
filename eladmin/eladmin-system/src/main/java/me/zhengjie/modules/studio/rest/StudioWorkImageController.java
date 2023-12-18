@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioWorkImage;
 import me.zhengjie.modules.studio.service.StudioWorkImageService;
@@ -47,7 +48,7 @@ public class StudioWorkImageController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioWorkImage:list')")
+    @AnonymousAccess
     public void exportStudioWorkImage(HttpServletResponse response, StudioWorkImageQueryCriteria criteria) throws IOException {
         studioWorkImageService.download(studioWorkImageService.queryAll(criteria), response);
     }
@@ -55,7 +56,7 @@ public class StudioWorkImageController {
     @GetMapping
     @Log("查询工作室作品图")
     @ApiOperation("查询工作室作品图")
-    @PreAuthorize("@el.check('studioWorkImage:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioWorkImage>> queryStudioWorkImage(StudioWorkImageQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioWorkImageService.queryAll(criteria,page),HttpStatus.OK);
     }
@@ -63,7 +64,7 @@ public class StudioWorkImageController {
     @PostMapping
     @Log("新增工作室作品图")
     @ApiOperation("新增工作室作品图")
-    @PreAuthorize("@el.check('studioWorkImage:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioWorkImage(@Validated @RequestBody StudioWorkImage resources){
         studioWorkImageService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +73,7 @@ public class StudioWorkImageController {
     @PutMapping
     @Log("修改工作室作品图")
     @ApiOperation("修改工作室作品图")
-    @PreAuthorize("@el.check('studioWorkImage:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioWorkImage(@Validated @RequestBody StudioWorkImage resources){
         studioWorkImageService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +82,7 @@ public class StudioWorkImageController {
     @DeleteMapping
     @Log("删除工作室作品图")
     @ApiOperation("删除工作室作品图")
-    @PreAuthorize("@el.check('studioWorkImage:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioWorkImage(@RequestBody List<Long> ids) {
         studioWorkImageService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

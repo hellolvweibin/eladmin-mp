@@ -85,8 +85,7 @@ public class StudioPartnerServiceImpl extends ServiceImpl<StudioPartnerMapper, S
             map.put("合作商标签（用&拼接）", studioPartner.getPartnerTag());
             map.put("合作商手机号", studioPartner.getPartnerPhone());
             map.put("合作商邮箱", studioPartner.getPartnerMail());
-            map.put("创建日期", studioPartner.getCreateTime());
-            map.put("更新时间", studioPartner.getUpdateTime());
+
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

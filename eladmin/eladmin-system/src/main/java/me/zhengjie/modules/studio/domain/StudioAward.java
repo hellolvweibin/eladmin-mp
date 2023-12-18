@@ -15,14 +15,16 @@
 */
 package me.zhengjie.modules.studio.domain;
 
+import cn.hutool.core.date.DateTime;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
+import lombok.EqualsAndHashCode;
+
 import java.sql.Timestamp;
 import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
 * @description /
@@ -31,9 +33,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 **/
 @Data
 @TableName("studio_award")
-public class StudioAward implements Serializable {
+public class StudioAward extends Base implements Serializable {
 
-    @TableId(value = "award_id")
+    @TableId(value = "award_id",type = IdType.AUTO)
     @ApiModelProperty(value = "奖项id")
     private Integer awardId;
 
@@ -43,11 +45,7 @@ public class StudioAward implements Serializable {
     @ApiModelProperty(value = "奖项分类")
     private Integer awardCategory;
 
-    @ApiModelProperty(value = "创建日期")
-    private Timestamp createTime;
 
-    @ApiModelProperty(value = "更新时间")
-    private Timestamp updateTime;
 
     public void copy(StudioAward source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

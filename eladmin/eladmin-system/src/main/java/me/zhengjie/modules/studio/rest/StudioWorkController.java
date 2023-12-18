@@ -15,12 +15,15 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioWork;
 import me.zhengjie.modules.studio.service.StudioWorkService;
 import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
+
+import me.zhengjie.modules.system.domain.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,7 +50,7 @@ public class StudioWorkController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioWork:list')")
+    @AnonymousAccess
     public void exportStudioWork(HttpServletResponse response, StudioWorkQueryCriteria criteria) throws IOException {
         studioWorkService.download(studioWorkService.queryAll(criteria), response);
     }
@@ -55,15 +58,23 @@ public class StudioWorkController {
     @GetMapping
     @Log("查询工作室作品")
     @ApiOperation("查询工作室作品")
-    @PreAuthorize("@el.check('studioWork:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioWork>> queryStudioWork(StudioWorkQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioWorkService.queryAll(criteria,page),HttpStatus.OK);
+    }
+
+    @GetMapping("/getWork/{id}")
+    @Log("根据id查询工作室作品")
+    @ApiOperation("根据id查询工作室作品")
+    @AnonymousAccess
+    public ResponseEntity<StudioWork> findStudioWorkById(@PathVariable Long id){
+        return new ResponseEntity<>(studioWorkService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增工作室作品")
     @ApiOperation("新增工作室作品")
-    @PreAuthorize("@el.check('studioWork:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioWork(@Validated @RequestBody StudioWork resources){
         studioWorkService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +83,7 @@ public class StudioWorkController {
     @PutMapping
     @Log("修改工作室作品")
     @ApiOperation("修改工作室作品")
-    @PreAuthorize("@el.check('studioWork:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioWork(@Validated @RequestBody StudioWork resources){
         studioWorkService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +92,7 @@ public class StudioWorkController {
     @DeleteMapping
     @Log("删除工作室作品")
     @ApiOperation("删除工作室作品")
-    @PreAuthorize("@el.check('studioWork:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioWork(@RequestBody List<Long> ids) {
         studioWorkService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

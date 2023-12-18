@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioClient">
         <id column="client_id" property="clientId"/>
         <result column="client_name" property="clientName"/>
-        <result column="client_nameC" property="clientNamec"/>
+        <result column="client_nameC" property="clientNameC"/>
         <result column="client_tag" property="clientTag"/>
         <result column="client_phone" property="clientPhone"/>
         <result column="client_mail" property="clientMail"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        client_id, client_name, client_nameC, client_tag, client_phone, client_mail, create_time, update_time
+        client_id, client_name, client_name_c, client_tag, client_phone, client_mail, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">

@@ -7,11 +7,11 @@
         <result column="staff_id" property="staffId"/>
         <result column="staff_tag" property="staffTag"/>
         <result column="staff_name" property="staffName"/>
-        <result column="staff_nameC" property="staffNamec"/>
+        <result column="staff_nameC" property="staffNameC"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, work_id, staff_id, staff_tag, staff_name, staff_nameC
+        id, work_id, staff_id, staff_tag, staff_name, staff_name_c
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">

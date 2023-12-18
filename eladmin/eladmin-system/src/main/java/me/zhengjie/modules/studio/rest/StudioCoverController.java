@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioCover;
 import me.zhengjie.modules.studio.service.StudioCoverService;
@@ -47,7 +48,7 @@ public class StudioCoverController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioCover:list')")
+    @AnonymousAccess
     public void exportStudioCover(HttpServletResponse response, StudioCoverQueryCriteria criteria) throws IOException {
         studioCoverService.download(studioCoverService.queryAll(criteria), response);
     }
@@ -55,7 +56,7 @@ public class StudioCoverController {
     @GetMapping
     @Log("查询工作室轮播图")
     @ApiOperation("查询工作室轮播图")
-    @PreAuthorize("@el.check('studioCover:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioCover>> queryStudioCover(StudioCoverQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioCoverService.queryAll(criteria,page),HttpStatus.OK);
     }
@@ -63,7 +64,7 @@ public class StudioCoverController {
     @PostMapping
     @Log("新增工作室轮播图")
     @ApiOperation("新增工作室轮播图")
-    @PreAuthorize("@el.check('studioCover:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioCover(@Validated @RequestBody StudioCover resources){
         studioCoverService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +73,7 @@ public class StudioCoverController {
     @PutMapping
     @Log("修改工作室轮播图")
     @ApiOperation("修改工作室轮播图")
-    @PreAuthorize("@el.check('studioCover:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioCover(@Validated @RequestBody StudioCover resources){
         studioCoverService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +82,7 @@ public class StudioCoverController {
     @DeleteMapping
     @Log("删除工作室轮播图")
     @ApiOperation("删除工作室轮播图")
-    @PreAuthorize("@el.check('studioCover:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioCover(@RequestBody List<Integer> ids) {
         studioCoverService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

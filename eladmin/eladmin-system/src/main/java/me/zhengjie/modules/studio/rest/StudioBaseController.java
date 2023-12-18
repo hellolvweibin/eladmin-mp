@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioBase;
 import me.zhengjie.modules.studio.service.StudioBaseService;
@@ -47,7 +48,7 @@ public class StudioBaseController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioBase:list')")
+    @AnonymousAccess
     public void exportStudioBase(HttpServletResponse response, StudioBaseQueryCriteria criteria) throws IOException {
         studioBaseService.download(studioBaseService.queryAll(criteria), response);
     }
@@ -55,15 +56,15 @@ public class StudioBaseController {
     @GetMapping
     @Log("查询工作室基本信息")
     @ApiOperation("查询工作室基本信息")
-    @PreAuthorize("@el.check('studioBase:list')")
-    public ResponseEntity<PageResult<StudioBase>> queryStudioBase(StudioBaseQueryCriteria criteria, Page<Object> page){
-        return new ResponseEntity<>(studioBaseService.queryAll(criteria,page),HttpStatus.OK);
+    @AnonymousAccess
+    public ResponseEntity<PageResult<StudioBase>> queryStudioBase(StudioBaseQueryCriteria criteria, Page<Object> page) {
+        return new ResponseEntity<>(studioBaseService.queryAll(criteria, page), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增工作室基本信息")
     @ApiOperation("新增工作室基本信息")
-    @PreAuthorize("@el.check('studioBase:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioBase(@Validated @RequestBody StudioBase resources){
         studioBaseService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +73,7 @@ public class StudioBaseController {
     @PutMapping
     @Log("修改工作室基本信息")
     @ApiOperation("修改工作室基本信息")
-    @PreAuthorize("@el.check('studioBase:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioBase(@Validated @RequestBody StudioBase resources){
         studioBaseService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +82,7 @@ public class StudioBaseController {
     @DeleteMapping
     @Log("删除工作室基本信息")
     @ApiOperation("删除工作室基本信息")
-    @PreAuthorize("@el.check('studioBase:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioBase(@RequestBody List<Long> ids) {
         studioBaseService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

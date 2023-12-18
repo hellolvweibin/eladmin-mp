@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioClient;
 import me.zhengjie.modules.studio.service.StudioClientService;
@@ -47,7 +48,7 @@ public class StudioClientController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioClient:list')")
+    @AnonymousAccess
     public void exportStudioClient(HttpServletResponse response, StudioClientQueryCriteria criteria) throws IOException {
         studioClientService.download(studioClientService.queryAll(criteria), response);
     }
@@ -55,7 +56,7 @@ public class StudioClientController {
     @GetMapping
     @Log("查询工作室客户")
     @ApiOperation("查询工作室客户")
-    @PreAuthorize("@el.check('studioClient:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioClient>> queryStudioClient(StudioClientQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioClientService.queryAll(criteria,page),HttpStatus.OK);
     }
@@ -63,7 +64,7 @@ public class StudioClientController {
     @PostMapping
     @Log("新增工作室客户")
     @ApiOperation("新增工作室客户")
-    @PreAuthorize("@el.check('studioClient:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioClient(@Validated @RequestBody StudioClient resources){
         studioClientService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +73,7 @@ public class StudioClientController {
     @PutMapping
     @Log("修改工作室客户")
     @ApiOperation("修改工作室客户")
-    @PreAuthorize("@el.check('studioClient:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioClient(@Validated @RequestBody StudioClient resources){
         studioClientService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +82,7 @@ public class StudioClientController {
     @DeleteMapping
     @Log("删除工作室客户")
     @ApiOperation("删除工作室客户")
-    @PreAuthorize("@el.check('studioClient:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioClient(@RequestBody List<Long> ids) {
         studioClientService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

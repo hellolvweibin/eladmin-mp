@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,9 +32,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 **/
 @Data
 @TableName("studio_work")
-public class StudioWork implements Serializable {
+public class StudioWork extends Base implements Serializable {
 
-    @TableId(value = "work_id")
+    @TableId(value = "work_id",type = IdType.AUTO)
     @ApiModelProperty(value = "作品id")
     private Long workId;
 
@@ -50,16 +51,12 @@ public class StudioWork implements Serializable {
     private String workDes;
 
     @ApiModelProperty(value = "作品中文描述")
-    private String workDesc;
+    private String workDesC;
 
     @ApiModelProperty(value = "作品客户")
     private String workClient;
 
-    @ApiModelProperty(value = "创建日期")
-    private Timestamp createTime;
 
-    @ApiModelProperty(value = "更新时间")
-    private Timestamp updateTime;
 
     public void copy(StudioWork source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

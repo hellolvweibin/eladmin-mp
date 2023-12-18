@@ -23,4 +23,7 @@ import lombok.Data;
 **/
 @Data
 public class StudioWorkQueryCriteria{
+    private String workId;
+    private String workName;
+    private String workNameC;
 }

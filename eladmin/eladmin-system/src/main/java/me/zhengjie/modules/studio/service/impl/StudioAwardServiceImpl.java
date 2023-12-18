@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import me.zhengjie.modules.studio.domain.StudioAward;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,8 @@ public class StudioAwardServiceImpl extends ServiceImpl<StudioAwardMapper, Studi
 
     @Override
     public PageResult<StudioAward> queryAll(StudioAwardQueryCriteria criteria, Page<Object> page){
+        IPage<StudioAward> all = studioAwardMapper.findAll(criteria, page);
+        System.out.println(all);
         return PageUtil.toPage(studioAwardMapper.findAll(criteria, page));
     }
 
@@ -82,8 +85,6 @@ public class StudioAwardServiceImpl extends ServiceImpl<StudioAwardMapper, Studi
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("奖项名称", studioAward.getAwardName());
             map.put("奖项分类", studioAward.getAwardCategory());
-            map.put("创建日期", studioAward.getCreateTime());
-            map.put("更新时间", studioAward.getUpdateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

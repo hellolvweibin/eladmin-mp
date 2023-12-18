@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.studio.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioWorkStaff;
 import me.zhengjie.modules.studio.service.StudioWorkStaffService;
@@ -47,7 +48,7 @@ public class StudioWorkStaffController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('studioWorkStaff:list')")
+    @AnonymousAccess
     public void exportStudioWorkStaff(HttpServletResponse response, StudioWorkStaffQueryCriteria criteria) throws IOException {
         studioWorkStaffService.download(studioWorkStaffService.queryAll(criteria), response);
     }
@@ -55,7 +56,7 @@ public class StudioWorkStaffController {
     @GetMapping
     @Log("查询工作室成员")
     @ApiOperation("查询工作室成员")
-    @PreAuthorize("@el.check('studioWorkStaff:list')")
+    @AnonymousAccess
     public ResponseEntity<PageResult<StudioWorkStaff>> queryStudioWorkStaff(StudioWorkStaffQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioWorkStaffService.queryAll(criteria,page),HttpStatus.OK);
     }
@@ -63,7 +64,7 @@ public class StudioWorkStaffController {
     @PostMapping
     @Log("新增工作室成员")
     @ApiOperation("新增工作室成员")
-    @PreAuthorize("@el.check('studioWorkStaff:add')")
+    @AnonymousAccess
     public ResponseEntity<Object> createStudioWorkStaff(@Validated @RequestBody StudioWorkStaff resources){
         studioWorkStaffService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,7 +73,7 @@ public class StudioWorkStaffController {
     @PutMapping
     @Log("修改工作室成员")
     @ApiOperation("修改工作室成员")
-    @PreAuthorize("@el.check('studioWorkStaff:edit')")
+    @AnonymousAccess
     public ResponseEntity<Object> updateStudioWorkStaff(@Validated @RequestBody StudioWorkStaff resources){
         studioWorkStaffService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +82,7 @@ public class StudioWorkStaffController {
     @DeleteMapping
     @Log("删除工作室成员")
     @ApiOperation("删除工作室成员")
-    @PreAuthorize("@el.check('studioWorkStaff:del')")
+    @AnonymousAccess
     public ResponseEntity<Object> deleteStudioWorkStaff(@RequestBody List<Long> ids) {
         studioWorkStaffService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

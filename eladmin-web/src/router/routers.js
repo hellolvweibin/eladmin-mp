@@ -57,7 +57,50 @@ export const constantRouterMap = [
         meta: { title: '个人中心' }
       }
     ]
+  },
+  {
+    path: '/studio',
+    component: Layout,
+    redirect: '/studio/studio_base',
+    name: '工作室管理',
+    meta: {
+      title: '工作室管理',
+      icon: 'visits'
+    },
+    children: [
+      {
+        path: 'studio_work',
+        component: (resolve) => require(['@/views/studio/studio_work/index'], resolve),
+        name: '作品管理',
+        meta: { title: '作品管理', icon: 'index' }
+      },
+      {
+        path: 'studio_client',
+        component: (resolve) => require(['@/views/studio/studio_client/index'], resolve),
+        name: '客户管理',
+        meta: { title: '客户管理', icon: 'wechat' }
+      },
+      {
+        path: 'studio_partner',
+        component: (resolve) => require(['@/views/studio/studio_partner/index'], resolve),
+        name: '合作商管理',
+        meta: { title: '合作商管理', icon: 'international' }
+      },
+      {
+        path: 'studio_staff',
+        component: (resolve) => require(['@/views/studio/studio_staff/index'], resolve),
+        name: '员工管理',
+        meta: { title: '员工管理', icon: 'peoples' }
+      },
+      {
+        path: 'studio_award',
+        component: (resolve) => require(['@/views/studio/studio_award/index'], resolve),
+        name: '奖项管理',
+        meta: { title: '奖项管理', icon: 'ipvisits' }
+      }
+    ]
   }
+
 ]
 
 export default new Router({

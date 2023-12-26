@@ -13,15 +13,18 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.studio.domain.vo;
+package me.zhengjie.modules.lv.domain.vo;
 
 import lombok.Data;
 
 /**
 * @author lv
-* @date 2023-12-11
+* @date 2023-12-25
 **/
 @Data
-public class StudioCoverQueryCriteria{
-    private Long coverId;
+public class StudioWorkQueryCriteria{
+    private Long workId;
+    private String workName;
+    private String workType;
+    private String workNameC;
 }

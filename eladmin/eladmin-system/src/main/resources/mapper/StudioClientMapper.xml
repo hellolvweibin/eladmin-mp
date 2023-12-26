@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioClient">
         <id column="client_id" property="clientId"/>
         <result column="client_name" property="clientName"/>
-        <result column="client_nameC" property="clientNameC"/>
+        <result column="client_name_c" property="clientNameC"/>
         <result column="client_tag" property="clientTag"/>
         <result column="client_phone" property="clientPhone"/>
         <result column="client_mail" property="clientMail"/>
@@ -21,7 +21,16 @@
         <include refid="Base_Column_List"/>
         from studio_client
         <where>
+            <if test="criteria.clientId != null">
+                and client_id = #{criteria.clientId}
+            </if>
+            <if test="criteria.clientName != null and criteria.clientName != ''">
+                and client_name like concat('%', #{criteria.clientName}, '%')
+            </if>
+            <if test="criteria.clientNameC != null and criteria.clientNameC != ''">
+                and client_name_c like concat('%', #{criteria.clientNameC}, '%')
+            </if>
         </where>
-        order by client_id desc
+        order by client_id
     </select>
 </mapper>

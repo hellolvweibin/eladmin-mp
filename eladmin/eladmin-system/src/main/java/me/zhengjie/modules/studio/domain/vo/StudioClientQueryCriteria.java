@@ -23,4 +23,7 @@ import lombok.Data;
 **/
 @Data
 public class StudioClientQueryCriteria{
+    private Long clientId;
+    private String clientName;
+    private String clientNameC;
 }

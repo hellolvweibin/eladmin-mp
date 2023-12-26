@@ -13,17 +13,16 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.studio.service.impl;
+package me.zhengjie.modules.lv.service.impl;
 
-import me.zhengjie.modules.studio.domain.StudioWork;
-import me.zhengjie.modules.studio.domain.dto.StudioWorkDTO;
+import me.zhengjie.modules.lv.domain.StudioWork;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import me.zhengjie.modules.studio.service.StudioWorkService;
-import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
-import me.zhengjie.modules.studio.mapper.StudioWorkMapper;
+import me.zhengjie.modules.lv.service.StudioWorkService;
+import me.zhengjie.modules.lv.domain.vo.StudioWorkQueryCriteria;
+import me.zhengjie.modules.lv.mapper.StudioWorkMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import me.zhengjie.utils.PageUtil;
@@ -38,18 +37,13 @@ import me.zhengjie.utils.PageResult;
 /**
 * @description 服务实现
 * @author lv
-* @date 2023-12-11
+* @date 2023-12-25
 **/
 @Service
 @RequiredArgsConstructor
 public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioWork> implements StudioWorkService {
 
     private final StudioWorkMapper studioWorkMapper;
-
-    @Override
-    public StudioWork findById(Long id) {
-        return getById(id);
-    }
 
     @Override
     public PageResult<StudioWork> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page){
@@ -59,11 +53,6 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
     @Override
     public List<StudioWork> queryAll(StudioWorkQueryCriteria criteria){
         return studioWorkMapper.findAll(criteria);
-    }
-
-    @Override
-    public PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page) {
-        return null;
     }
 
     @Override
@@ -92,11 +81,13 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
         for (StudioWork studioWork : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("作品英文名", studioWork.getWorkName());
-            map.put("作品中文名", studioWork.getWorkNameC());
             map.put("作品类别", studioWork.getWorkType());
             map.put("作品英文描述", studioWork.getWorkDes());
-            map.put("作品中文描述", studioWork.getWorkDesC());
             map.put("作品客户", studioWork.getWorkClient());
+            map.put("创建日期", studioWork.getCreateTime());
+            map.put("更新时间", studioWork.getUpdateTime());
+            map.put("作品中文名", studioWork.getWorkNameC());
+            map.put("作品中文描述", studioWork.getWorkDesC());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

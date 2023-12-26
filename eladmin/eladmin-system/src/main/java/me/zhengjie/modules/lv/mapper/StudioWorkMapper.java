@@ -13,30 +13,25 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.studio.mapper;
+package me.zhengjie.modules.lv.mapper;
 
-import me.zhengjie.modules.studio.domain.StudioBase;
-import me.zhengjie.modules.studio.domain.StudioWork;
-import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
+import me.zhengjie.modules.lv.domain.StudioWork;
+import me.zhengjie.modules.lv.domain.vo.StudioWorkQueryCriteria;
 import java.util.List;
-
-import me.zhengjie.modules.system.domain.Job;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.apache.ibatis.annotations.Select;
 
 /**
 * @author lv
-* @date 2023-12-11
+* @date 2023-12-25
 **/
 @Mapper
 public interface StudioWorkMapper extends BaseMapper<StudioWork> {
 
     IPage<StudioWork> findAll(@Param("criteria") StudioWorkQueryCriteria criteria, Page<Object> page);
-    IPage<StudioBase> findAllSet(@Param("criteria") StudioWorkQueryCriteria criteria, Page<Object> page);
 
     List<StudioWork> findAll(@Param("criteria") StudioWorkQueryCriteria criteria);
 }

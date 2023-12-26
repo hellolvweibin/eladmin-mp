@@ -31,4 +31,18 @@
         </where>
         order by work_id desc
     </select>
+    <select id="findAllSet" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_work
+        <where>
+            <if test="criteria.workName != null and criteria.workName != ''">
+                and name like concat('%', #{criteria.workName}, '%')
+            </if>
+            <if test="criteria.workNameC != null and criteria.workNameC != ''">
+                and name like concat('%', #{criteria.workNameC}, '%')
+            </if>
+        </where>
+        order by work_id desc
+    </select>
 </mapper>

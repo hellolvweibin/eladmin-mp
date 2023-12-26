@@ -27,6 +27,6 @@
                 and name like concat('%', #{criteria.staffNameC}, '%')
             </if>
         </where>
-        order by staff_id desc
+        order by staff_id
     </select>
 </mapper>

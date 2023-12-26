@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioPartner">
         <id column="partner_id" property="partnerId"/>
         <result column="partner_name" property="partnerName"/>
-        <result column="partner_nameC" property="partnerNameC"/>
+        <result column="partner_name_c" property="partnerNameC"/>
         <result column="partner_tag" property="partnerTag"/>
         <result column="partner_phone" property="partnerPhone"/>
         <result column="partner_mail" property="partnerMail"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        partner_id, partner_name, partner_nameC, partner_tag, partner_phone, partner_mail, create_time, update_time
+        partner_id, partner_name, partner_name_c, partner_tag, partner_phone, partner_mail, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -21,7 +21,16 @@
         <include refid="Base_Column_List"/>
         from studio_partner
         <where>
+            <if test="criteria.partnerId != null">
+                and partner_id = #{criteria.partnerId}
+            </if>
+            <if test="criteria.partnerName != null and criteria.partnerName != ''">
+                and partner_name like concat('%', #{criteria.partnerName}, '%')
+            </if>
+            <if test="criteria.partnerNameC != null and criteria.partnerNameC != ''">
+                and partner_name_c like concat('%', #{criteria.partnerNameC}, '%')
+            </if>
         </where>
-        order by partner_id desc
+        order by partner_id
     </select>
 </mapper>

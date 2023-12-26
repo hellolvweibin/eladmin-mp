@@ -26,4 +26,5 @@ public class StudioWorkQueryCriteria{
     private String workId;
     private String workName;
     private String workNameC;
+    private String workType;
 }

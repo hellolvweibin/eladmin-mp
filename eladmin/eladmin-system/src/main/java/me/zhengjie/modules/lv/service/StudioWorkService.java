@@ -13,34 +13,24 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.studio.service;
+package me.zhengjie.modules.lv.service;
 
-import me.zhengjie.modules.studio.domain.StudioBase;
-import me.zhengjie.modules.studio.domain.StudioWork;
-import me.zhengjie.modules.studio.domain.dto.StudioWorkDTO;
-import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
+import me.zhengjie.modules.lv.domain.StudioWork;
+import me.zhengjie.modules.lv.domain.vo.StudioWorkQueryCriteria;
 import java.util.Map;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.utils.PageResult;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
 * @description 服务接口
 * @author lv
-* @date 2023-12-11
+* @date 2023-12-25
 **/
 public interface StudioWorkService extends IService<StudioWork> {
-    /**
-     * 根据id查询作品信息
-     * @param id 条件
-     * @return StudioWork
-     */
-    StudioWork findById(Long id);
 
     /**
     * 查询数据分页
@@ -56,14 +46,6 @@ public interface StudioWorkService extends IService<StudioWork> {
     * @return List<StudioWorkDto>
     */
     List<StudioWork> queryAll(StudioWorkQueryCriteria criteria);
-    /**
-     * 查询关联数据分页
-     * @param criteria 条件
-     * @param page 分页参数
-     * @return PageResult
-     */
-    PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page);
-
 
     /**
     * 创建

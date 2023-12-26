@@ -17,10 +17,13 @@ package me.zhengjie.modules.studio.domain.vo;
 
 import lombok.Data;
 
+import java.awt.print.Printable;
+
 /**
 * @author lv
 * @date 2023-12-11
 **/
 @Data
 public class StudioAwardQueryCriteria{
+    private String awardName;
 }

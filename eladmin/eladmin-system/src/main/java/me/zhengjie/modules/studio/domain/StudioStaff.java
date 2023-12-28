@@ -47,8 +47,8 @@ public class StudioStaff extends Base implements Serializable {
     @ApiModelProperty(value = "员工中文名")
     private String staffNameC;
 
-    @ApiModelProperty(value = "员工性别（0、未知，1、男，2、女）")
-    private Integer staffSex;
+    @ApiModelProperty(value = "员工性别")
+    private String staffSex;
 
     @ApiModelProperty(value = "员工工作室id")
     private Long staffStudioId;

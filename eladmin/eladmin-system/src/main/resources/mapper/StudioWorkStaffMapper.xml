@@ -7,7 +7,7 @@
         <result column="staff_id" property="staffId"/>
         <result column="staff_tag" property="staffTag"/>
         <result column="staff_name" property="staffName"/>
-        <result column="staff_nameC" property="staffNameC"/>
+        <result column="staff_name_c" property="staffNameC"/>
     </resultMap>
 
     <sql id="Base_Column_List">

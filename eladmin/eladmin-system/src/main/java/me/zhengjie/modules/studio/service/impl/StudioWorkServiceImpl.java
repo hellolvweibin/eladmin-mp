@@ -15,8 +15,14 @@
 */
 package me.zhengjie.modules.studio.service.impl;
 
+import cn.hutool.log.Log;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import me.zhengjie.modules.studio.domain.StudioWork;
+import me.zhengjie.modules.studio.domain.StudioWorkImage;
+import me.zhengjie.modules.studio.domain.StudioWorkStaff;
 import me.zhengjie.modules.studio.domain.dto.StudioWorkDTO;
+import me.zhengjie.modules.studio.mapper.StudioWorkImageMapper;
+import me.zhengjie.modules.studio.mapper.StudioWorkStaffMapper;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,6 +30,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import me.zhengjie.modules.studio.service.StudioWorkService;
 import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
 import me.zhengjie.modules.studio.mapper.StudioWorkMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import me.zhengjie.utils.PageUtil;
@@ -35,6 +42,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import me.zhengjie.utils.PageResult;
 
+import static cn.hutool.poi.excel.sax.AttributeName.s;
+
 /**
 * @description 服务实现
 * @author lv
@@ -45,6 +54,8 @@ import me.zhengjie.utils.PageResult;
 public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioWork> implements StudioWorkService {
 
     private final StudioWorkMapper studioWorkMapper;
+    private final StudioWorkImageMapper studioWorkImageMapper;
+    private final StudioWorkStaffMapper studioWorkStaffMapper;
 
     @Override
     public StudioWork findById(Long id) {
@@ -63,7 +74,23 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
 
     @Override
     public PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page) {
-        return null;
+        List<StudioWorkDTO> studioWorkDto = new ArrayList<>();
+        List<StudioWork> all = studioWorkMapper.findAll(criteria);
+        QueryWrapper<StudioWorkStaff> queryStaffWrapper = new QueryWrapper<>();
+        QueryWrapper<StudioWorkImage> queryImageWrapper = new QueryWrapper<>();
+        for (StudioWork studioWork : all) {
+            StudioWorkDTO studioWorkDTO = new StudioWorkDTO();
+            BeanUtils.copyProperties(all,studioWorkDTO);
+            Long workId = studioWork.getWorkId();
+            queryStaffWrapper.eq("work_id",workId);
+            queryImageWrapper.eq("work_id",workId);
+            List<StudioWorkStaff> studioWorkStaff = studioWorkStaffMapper.selectList(queryStaffWrapper);
+            List<StudioWorkImage> studioWorkImage = studioWorkImageMapper.selectList(queryImageWrapper);
+            studioWorkDTO.setAuthors(studioWorkStaff);
+            studioWorkDTO.setWorkImages(studioWorkImage);
+        }
+
+        return PageUtil.toPage(studioWorkDto);
     }
 
     @Override

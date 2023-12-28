@@ -43,7 +43,7 @@ public class StudioAward extends Base implements Serializable {
     private String awardName;
 
     @ApiModelProperty(value = "奖项分类")
-    private Integer awardCategory;
+    private String awardCategory;
 
 
 

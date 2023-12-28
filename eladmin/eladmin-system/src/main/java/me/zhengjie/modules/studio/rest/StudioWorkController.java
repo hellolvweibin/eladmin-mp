@@ -18,12 +18,14 @@ package me.zhengjie.modules.studio.rest;
 import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.studio.domain.StudioWork;
+import me.zhengjie.modules.studio.domain.dto.StudioWorkDTO;
 import me.zhengjie.modules.studio.service.StudioWorkService;
 import me.zhengjie.modules.studio.domain.vo.StudioWorkQueryCriteria;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.utils.CacheKey;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,7 +62,7 @@ public class StudioWorkController {
     @ApiOperation("查询工作室作品")
     @AnonymousAccess
     public ResponseEntity<PageResult<StudioWork>> queryStudioWork(StudioWorkQueryCriteria criteria, Page<Object> page){
-        return new ResponseEntity<>(studioWorkService.queryAll(criteria,page),HttpStatus.OK);
+        return new ResponseEntity<>(studioWorkService.queryAll(criteria, page),HttpStatus.OK);
     }
 
     @GetMapping("/getWork/{id}")
@@ -68,6 +70,7 @@ public class StudioWorkController {
     @ApiOperation("根据id查询工作室作品")
     @AnonymousAccess
     public ResponseEntity<StudioWork> findStudioWorkById(@PathVariable Long id){
+
         return new ResponseEntity<>(studioWorkService.findById(id), HttpStatus.OK);
     }
 

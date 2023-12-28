@@ -23,13 +23,16 @@
         from studio_work
         <where>
             <if test="criteria.workName != null and criteria.workName != ''">
-                and name like concat('%', #{criteria.workName}, '%')
+                and work_name like concat('%', #{criteria.workName}, '%')
             </if>
             <if test="criteria.workNameC != null and criteria.workNameC != ''">
-                and name like concat('%', #{criteria.workNameC}, '%')
+                and work_name_c like concat('%', #{criteria.workNameC}, '%')
+            </if>
+            <if test="criteria.workClient != null and criteria.workClient != ''">
+                and work_client like concat('%', #{criteria.workClient}, '%')
             </if>
         </where>
-        order by work_id desc
+        order by work_id
     </select>
     <select id="findAllSet" resultMap="BaseResultMap">
         select
@@ -42,7 +45,8 @@
             <if test="criteria.workNameC != null and criteria.workNameC != ''">
                 and name like concat('%', #{criteria.workNameC}, '%')
             </if>
+
         </where>
-        order by work_id desc
+        order by work_id
     </select>
 </mapper>

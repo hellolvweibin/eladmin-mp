@@ -2,9 +2,15 @@ package me.zhengjie.modules.studio.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import me.zhengjie.modules.studio.domain.Base;
+import me.zhengjie.modules.studio.domain.StudioStaff;
+import me.zhengjie.modules.studio.domain.StudioWorkImage;
+import me.zhengjie.modules.studio.domain.StudioWorkStaff;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Project ：eladmin
@@ -13,6 +19,8 @@ import java.io.Serializable;
  * @description ：
  */
 @Data
+@Setter
+@Getter
 public class StudioWorkDTO extends Base implements Serializable {
     @ApiModelProperty(value = "作品id")
     private Long workId;
@@ -34,4 +42,12 @@ public class StudioWorkDTO extends Base implements Serializable {
 
     @ApiModelProperty(value = "作品客户")
     private String workClient;
+
+    @ApiModelProperty(value = "作品团队成员")
+    private List<StudioWorkStaff> authors;
+
+    @ApiModelProperty(value = "作品团队成员")
+    private List<StudioWorkImage> workImages;
+
+
 }

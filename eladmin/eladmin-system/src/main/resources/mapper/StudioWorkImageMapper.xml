@@ -21,6 +21,6 @@
                 and work_id = #{criteria.workId}
             </if>
         </where>
-        order by id desc
+        order by id
     </select>
 </mapper>

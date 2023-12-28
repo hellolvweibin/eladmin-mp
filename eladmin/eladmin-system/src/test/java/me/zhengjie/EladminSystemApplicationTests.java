@@ -3,6 +3,7 @@ package me.zhengjie;
 import me.zhengjie.modules.studio.domain.StudioBase;
 import me.zhengjie.modules.studio.domain.vo.StudioBaseQueryCriteria;
 import me.zhengjie.modules.studio.mapper.StudioBaseMapper;
+import me.zhengjie.modules.studio.mapper.StudioWorkMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,7 @@ public class EladminSystemApplicationTests {
     }
 
     public static void main(String[] args) {
+
     }
 }
 

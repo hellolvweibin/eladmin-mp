@@ -21,10 +21,10 @@
         from studio_staff
         <where>
             <if test="criteria.staffName != null and criteria.staffName != ''">
-                and name like concat('%', #{criteria.staffName}, '%')
+                and staff_name like concat('%', #{criteria.staffName}, '%')
             </if>
             <if test="criteria.staffNameC != null and criteria.staffNameC != ''">
-                and name like concat('%', #{criteria.staffNameC}, '%')
+                and staff_name_c like concat('%', #{criteria.staffNameC}, '%')
             </if>
         </where>
         order by staff_id

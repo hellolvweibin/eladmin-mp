@@ -46,8 +46,8 @@ public class StudioWorkImage implements Serializable {
     @ApiModelProperty(value = "作品图片地址")
     private String workImage;
 
-    @ApiModelProperty(value = "作品图片的大小状态(0、缩略1、正常2、两倍)")
-    private Integer workStatus;
+    @ApiModelProperty(value = "作品尺寸)")
+    private String workStatus;
 
     public void copy(StudioWorkImage source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

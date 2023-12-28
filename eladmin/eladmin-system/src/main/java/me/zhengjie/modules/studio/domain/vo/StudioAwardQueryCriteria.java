@@ -26,4 +26,5 @@ import java.awt.print.Printable;
 @Data
 public class StudioAwardQueryCriteria{
     private String awardName;
+    private String awardCategory;
 }

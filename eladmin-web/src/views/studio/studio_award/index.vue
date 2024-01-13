@@ -6,6 +6,8 @@
         <!-- 搜索 -->
         <label class="el-form-item-label">奖项名称</label>
         <el-input v-model="query.awardName" clearable placeholder="奖项名称" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <label class="el-form-item-label">奖项分类</label>
+        <el-input v-model="query.awardCategory" clearable placeholder="奖项分类" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <rrOperation :crud="crud" />
       </div>
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
@@ -13,10 +15,10 @@
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
-          <el-form-item label="奖项名称">
+          <el-form-item label="奖项名称" prop="awardName">
             <el-input v-model="form.awardName" style="width: 370px;" />
           </el-form-item>
-          <el-form-item label="奖项分类">
+          <el-form-item label="奖项分类" prop="awardCategory">
             <el-input v-model="form.awardCategory" style="width: 370px;" />
           </el-form-item>
         </el-form>
@@ -31,8 +33,6 @@
         <el-table-column prop="awardId" label="奖项id" />
         <el-table-column prop="awardName" label="奖项名称" />
         <el-table-column prop="awardCategory" label="奖项分类" />
-        <el-table-column prop="createTime" label="创建日期" />
-        <el-table-column prop="updateTime" label="更新时间" />
         <el-table-column v-if="checkPer(['admin','studioAward:edit','studioAward:del'])" label="操作" width="150px" align="center">
           <template slot-scope="scope">
             <udOperation
@@ -51,10 +51,10 @@
 <script>
 import crudStudioAward from '@/api/studioAward'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
-import rrOperation from '@crud/RR.operation.vue'
-import crudOperation from '@crud/CRUD.operation.vue'
-import udOperation from '@crud/UD.operation.vue'
-import pagination from '@crud/Pagination.vue'
+import rrOperation from '@crud/RR.operation'
+import crudOperation from '@crud/CRUD.operation'
+import udOperation from '@crud/UD.operation'
+import pagination from '@crud/Pagination'
 
 const defaultForm = { awardId: null, awardName: null, awardCategory: null, createTime: null, updateTime: null }
 export default {
@@ -72,12 +72,16 @@ export default {
         del: ['admin', 'studioAward:del']
       },
       rules: {
-        awardId: [
-          { required: true, message: '奖项id不能为空', trigger: 'blur' }
+        awardName: [
+          { required: true, message: '奖项名称不能为空', trigger: 'blur' }
+        ],
+        awardCategory: [
+          { required: true, message: '奖项分类不能为空', trigger: 'blur' }
         ]
       },
       queryTypeOptions: [
-        { key: 'awardName', display_name: '奖项名称' }
+        { key: 'awardName', display_name: '奖项名称' },
+        { key: 'awardCategory', display_name: '奖项分类' }
       ]
     }
   },

@@ -16,21 +16,21 @@
       <crudOperation :permission="permission" />
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
-        <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+        <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
           <el-form-item label="客户英文名" prop="clientName">
-            <el-input v-model="form.clientName" style="width: 370px;" />
+            <el-input v-model="form.clientName" style="width: 300px;" />
           </el-form-item>
           <el-form-item label="客户中文名" prop="clientNameC">
-            <el-input v-model="form.clientNameC" style="width: 370px;" />
+            <el-input v-model="form.clientNameC" style="width: 300px;" />
           </el-form-item>
-          <el-form-item label="客户标签（用&拼接）">
+          <el-form-item label="客户标签">
             未设置字典，请手动设置 Select
           </el-form-item>
           <el-form-item label="客户手机号">
-            <el-input v-model="form.clientPhone" style="width: 370px;" />
+            <el-input v-model="form.clientPhone" style="width: 300px;" />
           </el-form-item>
           <el-form-item label="客户邮箱">
-            <el-input v-model="form.clientMail" style="width: 370px;" />
+            <el-input v-model="form.clientMail" style="width: 300px;" />
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -44,7 +44,7 @@
         <el-table-column prop="clientId" label="客户id" />
         <el-table-column prop="clientName" label="客户英文名" />
         <el-table-column prop="clientNameC" label="客户中文名" />
-        <el-table-column prop="clientTag" label="客户标签（用&拼接）" />
+        <el-table-column prop="clientTag" label="客户标签" />
         <el-table-column prop="clientPhone" label="客户手机号" />
         <el-table-column prop="clientMail" label="客户邮箱" />
         <el-table-column v-if="checkPer(['admin','studioClient:edit','studioClient:del'])" label="操作" width="150px" align="center">

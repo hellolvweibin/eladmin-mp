@@ -69,10 +69,22 @@ export const constantRouterMap = [
     },
     children: [
       {
+        path: 'studio_base',
+        component: (resolve) => require(['@/views/studio/studio_base/index'], resolve),
+        name: '工作室基本信息管理',
+        meta: { title: '基本信息管理', icon: 'nested' }
+      },
+      {
         path: 'studio_work',
         component: (resolve) => require(['@/views/studio/studio_work/index'], resolve),
         name: '作品管理',
         meta: { title: '作品管理', icon: 'index' }
+      },
+      {
+        path: 'studio_work_image',
+        component: (resolve) => require(['@/views/studio/studio_work_image/index'], resolve),
+        name: '作品图集管理',
+        meta: { title: '作品图集管理', icon: 'index' }
       },
       {
         path: 'studio_client',

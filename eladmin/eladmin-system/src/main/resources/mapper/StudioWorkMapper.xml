@@ -45,7 +45,6 @@
             <if test="criteria.workNameC != null and criteria.workNameC != ''">
                 and name like concat('%', #{criteria.workNameC}, '%')
             </if>
-
         </where>
         order by work_id
     </select>

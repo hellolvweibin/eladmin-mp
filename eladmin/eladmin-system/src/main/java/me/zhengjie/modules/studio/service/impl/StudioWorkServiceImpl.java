@@ -75,21 +75,16 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
     @Override
     public PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page) {
         List<StudioWorkDTO> studioWorkDto = new ArrayList<>();
-        List<StudioWork> all = studioWorkMapper.findAll(criteria);
+        List<StudioWork> source = studioWorkMapper.findAll(criteria);
         QueryWrapper<StudioWorkStaff> queryStaffWrapper = new QueryWrapper<>();
-        QueryWrapper<StudioWorkImage> queryImageWrapper = new QueryWrapper<>();
-        for (StudioWork studioWork : all) {
-            StudioWorkDTO studioWorkDTO = new StudioWorkDTO();
-            BeanUtils.copyProperties(all,studioWorkDTO);
+        for (StudioWork studioWork : source) {
+            StudioWorkDTO target = new StudioWorkDTO();
+            BeanUtils.copyProperties(source,target);
             Long workId = studioWork.getWorkId();
             queryStaffWrapper.eq("work_id",workId);
-            queryImageWrapper.eq("work_id",workId);
             List<StudioWorkStaff> studioWorkStaff = studioWorkStaffMapper.selectList(queryStaffWrapper);
-            List<StudioWorkImage> studioWorkImage = studioWorkImageMapper.selectList(queryImageWrapper);
-            studioWorkDTO.setAuthors(studioWorkStaff);
-            studioWorkDTO.setWorkImages(studioWorkImage);
+            target.setAuthors(studioWorkStaff);
         }
-
         return PageUtil.toPage(studioWorkDto);
     }
 

@@ -46,8 +46,6 @@ public class StudioWorkDTO extends Base implements Serializable {
     @ApiModelProperty(value = "作品团队成员")
     private List<StudioWorkStaff> authors;
 
-    @ApiModelProperty(value = "作品团队成员")
-    private List<StudioWorkImage> workImages;
 
 
 }

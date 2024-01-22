@@ -109,6 +109,12 @@ export const constantRouterMap = [
         component: (resolve) => require(['@/views/studio/studio_award/index'], resolve),
         name: '奖项管理',
         meta: { title: '奖项管理', icon: 'ipvisits' }
+      },
+      {
+        path: 'studio_tag',
+        component: (resolve) => require(['@/views/studio/studio_dict/index'], resolve),
+        name: '标签管理',
+        meta: { title: '标签管理', icon: 'chain' }
       }
     ]
   }

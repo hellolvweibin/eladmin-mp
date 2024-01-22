@@ -30,6 +30,9 @@
             <if test="criteria.clientNameC != null and criteria.clientNameC != ''">
                 and client_name_c like concat('%', #{criteria.clientNameC}, '%')
             </if>
+            <if test="criteria.clientTag != null">
+                and client_tag = #{criteria.clientTag}
+            </if>
         </where>
         order by client_id
     </select>

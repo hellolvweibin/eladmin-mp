@@ -26,4 +26,5 @@ public class StudioPartnerQueryCriteria{
     private Long partnerId;
     private String partnerName;
     private String partnerNameC;
+    private String partnerTag;
 }

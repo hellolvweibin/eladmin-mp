@@ -49,7 +49,7 @@ public class StudioClient extends Base implements Serializable {
     @ApiModelProperty(value = "客户中文名")
     private String clientNameC;
 
-    @ApiModelProperty(value = "客户标签（用&拼接）")
+    @ApiModelProperty(value = "客户标签")
     private String clientTag;
 
     @ApiModelProperty(value = "客户手机号")

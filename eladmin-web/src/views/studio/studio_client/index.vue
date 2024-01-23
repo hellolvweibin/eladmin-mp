@@ -70,7 +70,7 @@
           <template slot-scope="scope">
             <el-tag
               type="success"
-              effect="dark"
+              effect="light"
             >{{ scope.row.clientTag }}</el-tag>
           </template>
         </el-table-column>

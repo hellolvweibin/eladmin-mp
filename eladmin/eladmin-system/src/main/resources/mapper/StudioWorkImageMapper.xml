@@ -30,6 +30,6 @@
                 and work_status = #{criteria.workStatus}
             </if>
         </where>
-        order by id desc
+        order by id
     </select>
 </mapper>

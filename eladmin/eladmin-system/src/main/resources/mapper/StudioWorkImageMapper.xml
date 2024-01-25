@@ -6,10 +6,16 @@
         <result column="work_id" property="workId"/>
         <result column="work_image" property="workImage"/>
         <result column="work_status" property="workStatus"/>
+        <result column="work_offset_x" property="workOffsetX"/>
+        <result column="work_offset_y" property="workOffsetY"/>
+        <result column="work_image_height" property="workImageHeight"/>
+        <result column="work_image_width" property="workImageWidth"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, work_id, work_image, work_status
+        id, work_id, work_image, work_status, work_offset_x, work_offset_y, work_image_height, work_image_width, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -20,7 +26,10 @@
             <if test="criteria.workId != null">
                 and work_id = #{criteria.workId}
             </if>
+            <if test="criteria.workStatus != null">
+                and work_status = #{criteria.workStatus}
+            </if>
         </where>
-        order by id
+        order by id desc
     </select>
 </mapper>

@@ -4,13 +4,14 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioAward">
         <id column="award_id" property="awardId"/>
         <result column="award_name" property="awardName"/>
-        <result column="award_category" property="awardCategory"/>
+        <result column="award_tag" property="awardTag"/>
+        <result column="award_year" property="awardYear"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        award_id, award_name, award_category, create_time, update_time
+        award_id, award_name, award_tag,award_year, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -21,10 +22,13 @@
             <if test="criteria.awardName != null and criteria.awardName != ''">
                 and award_name like concat('%', #{criteria.awardName}, '%')
             </if>
-            <if test="criteria.awardCategory != null and criteria.awardCategory != ''">
-                and award_category like concat('%', #{criteria.awardCategory}, '%')
+            <if test="criteria.awardTag != null">
+                and award_tag = #{criteria.awardTag}
+            </if>
+            <if test="criteria.awardYear != null and criteria.awardYear != ''">
+                and award_year like concat('%', #{criteria.awardYear}, '%')
             </if>
         </where>
-        order by award_id
+        order by award_year desc
     </select>
 </mapper>

@@ -84,7 +84,8 @@ public class StudioAwardServiceImpl extends ServiceImpl<StudioAwardMapper, Studi
         for (StudioAward studioAward : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("奖项名称", studioAward.getAwardName());
-            map.put("奖项分类", studioAward.getAwardCategory());
+            map.put("奖项标签", studioAward.getAwardTag());
+            map.put("奖项年份", studioAward.getAwardYear());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

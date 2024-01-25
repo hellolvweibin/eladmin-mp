@@ -81,8 +81,12 @@ public class StudioWorkImageServiceImpl extends ServiceImpl<StudioWorkImageMappe
         for (StudioWorkImage studioWorkImage : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("作品id", studioWorkImage.getWorkId());
-            map.put("作品图片地址", studioWorkImage.getWorkImage());
-            map.put("作品图片的大小状态(0、缩略1、正常2、两倍)", studioWorkImage.getWorkStatus());
+            map.put("图片地址", studioWorkImage.getWorkImage());
+            map.put("作品尺寸", studioWorkImage.getWorkStatus());
+            map.put("作品x坐标", studioWorkImage.getWorkOffsetX());
+            map.put("作品y坐标", studioWorkImage.getWorkOffsetY());
+            map.put("作品图片高度", studioWorkImage.getWorkImageHeight());
+            map.put("作品图片宽度", studioWorkImage.getWorkImageWidth());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

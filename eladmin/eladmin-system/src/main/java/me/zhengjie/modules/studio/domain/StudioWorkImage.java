@@ -24,6 +24,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -33,9 +34,9 @@ import javax.validation.constraints.NotNull;
 **/
 @Data
 @TableName("studio_work_image")
-public class StudioWorkImage implements Serializable {
+public class StudioWorkImage extends Base implements Serializable {
 
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "记录id")
     private Long id;
 
@@ -43,11 +44,25 @@ public class StudioWorkImage implements Serializable {
     @ApiModelProperty(value = "作品id")
     private Long workId;
 
-    @ApiModelProperty(value = "作品图片地址")
+    @NotBlank
+    @ApiModelProperty(value = "图片地址")
     private String workImage;
 
-    @ApiModelProperty(value = "作品尺寸)")
+    @NotBlank
+    @ApiModelProperty(value = "作品尺寸")
     private String workStatus;
+
+    @ApiModelProperty(value = "作品x坐标")
+    private String workOffsetX;
+
+    @ApiModelProperty(value = "作品y坐标")
+    private String workOffsetY;
+
+    @ApiModelProperty(value = "作品图片高度")
+    private String workImageHeight;
+
+    @ApiModelProperty(value = "作品图片宽度")
+    private String workImageWidth;
 
     public void copy(StudioWorkImage source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

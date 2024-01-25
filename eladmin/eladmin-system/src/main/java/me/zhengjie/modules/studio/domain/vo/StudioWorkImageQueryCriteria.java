@@ -24,4 +24,5 @@ import lombok.Data;
 @Data
 public class StudioWorkImageQueryCriteria{
     private Long workId;
+    private String workStatus;
 }

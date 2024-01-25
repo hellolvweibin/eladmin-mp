@@ -34,7 +34,16 @@
             <el-input v-model="form.workId" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="图片地址" prop="workImage">
-            <el-input v-model="form.workImage" style="width: 370px;" />
+            <el-upload
+              action="https://jsonplaceholder.typicode.com/posts/"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handleRemove"
+            >
+              <img v-if="form.workImage" :src="form.workImage" class="avatar" width="100%">
+              <i v-else class="el-icon-plus avatar-uploader-icon" />
+            </el-upload>
+
           </el-form-item>
           <el-form-item label="作品尺寸" prop="workStatus">
             <el-select v-model="form.workStatus" filterable placeholder="请选择">

@@ -38,9 +38,10 @@
             :headers="headers"
             :on-success="handleSuccess"
             :on-error="handleError"
+            list-type="picture-card"
             :action="fileUploadApi + '?name=' + form.name"
           >
-            <div class="eladmin-upload"><i class="el-icon-upload" /> 添加文件</div>
+            <i class="el-icon-plus" />
             <div slot="tip" class="el-upload__tip">可上传任意格式文件，且不超过100M</div>
           </el-upload>
         </el-form-item>
@@ -92,6 +93,9 @@
       </el-table-column>
       <el-table-column prop="suffix" label="文件类型" />
       <el-table-column prop="type" label="类别" />
+      <el-table-column prop="size" label="大小" />
+      <el-table-column prop="imageHeight" label="图片高度" />
+      <el-table-column prop="imageHeight" label="图片宽度" />
       <el-table-column prop="size" label="大小" />
       <el-table-column prop="operate" label="操作人" />
       <el-table-column prop="createTime" label="创建日期" />
@@ -169,6 +173,12 @@ export default {
         duration: 2500
       })
       this.loading = false
+    },
+    getUrl(row) {
+      console.log('111')
+      // eslint-disable-next-line no-undef,no-unused-vars
+      const url = baseApi + '/file/' + row.type + '/' + row.realName
+      console.log()
     }
   }
 }

@@ -26,8 +26,11 @@ import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.mapper.LocalStorageMapper;
 import me.zhengjie.utils.*;
 import me.zhengjie.service.LocalStorageService;
+import net.dreamlu.mica.core.utils.ImageUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -60,23 +65,31 @@ public class LocalStorageServiceImpl extends ServiceImpl<LocalStorageMapper, Loc
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public LocalStorage create(String name, MultipartFile multipartFile) {
+    public LocalStorage create(String name, MultipartFile multipartFile) throws IOException {
         FileUtil.checkSize(properties.getMaxSize(), multipartFile.getSize());
         String suffix = FileUtil.getExtensionName(multipartFile.getOriginalFilename());
         String type = FileUtil.getFileType(suffix);
         File file = FileUtil.upload(multipartFile, properties.getPath().getPath() + type +  File.separator);
+        String imageHeight;
+        String imageWidth;
         if(ObjectUtil.isNull(file)){
             throw new BadRequestException("上传失败");
         }
         try {
             name = StringUtils.isBlank(name) ? FileUtil.getFileNameNoEx(multipartFile.getOriginalFilename()) : name;
+            File imageFile = new File(file.getPath());
+            BufferedImage bufferedImage = ImageUtil.read(imageFile);
+            imageHeight = String.valueOf(bufferedImage.getHeight());
+            imageWidth = String.valueOf(bufferedImage.getWidth());
             LocalStorage localStorage = new LocalStorage(
                     file.getName(),
                     name,
                     suffix,
                     file.getPath(),
                     type,
-                    FileUtil.getSize(multipartFile.getSize())
+                    FileUtil.getSize(multipartFile.getSize()),
+                    imageHeight,
+                    imageWidth
             );
             save(localStorage);
             return localStorage;

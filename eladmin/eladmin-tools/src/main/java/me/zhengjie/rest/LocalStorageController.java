@@ -17,6 +17,7 @@ package me.zhengjie.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.LocalStorage;
 import me.zhengjie.exception.BadRequestException;
@@ -63,14 +64,15 @@ public class LocalStorageController {
     @PostMapping
     @ApiOperation("上传文件")
     @PreAuthorize("@el.check('storage:add')")
-    public ResponseEntity<Object> createFile(@RequestParam String name, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<Object> createFile(@RequestParam String name, @RequestParam("file") MultipartFile file) throws IOException {
         localStorageService.create(name, file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @ApiOperation("上传图片")
     @PostMapping("/pictures")
-    public ResponseEntity<LocalStorage> uploadPicture(@RequestParam MultipartFile file){
+    @AnonymousAccess
+    public ResponseEntity<LocalStorage> uploadPicture(@RequestParam MultipartFile file) throws IOException {
         // 判断文件是否为图片
         String suffix = FileUtil.getExtensionName(file.getOriginalFilename());
         if(!FileUtil.IMAGE.equals(FileUtil.getFileType(suffix))){

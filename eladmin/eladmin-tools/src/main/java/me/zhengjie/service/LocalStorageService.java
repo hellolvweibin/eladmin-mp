@@ -53,7 +53,7 @@ public interface LocalStorageService extends IService<LocalStorage> {
      * @param file 文件
      * @return /
      */
-    LocalStorage create(String name, MultipartFile file);
+    LocalStorage create(String name, MultipartFile file) throws IOException;
 
     /**
      * 编辑

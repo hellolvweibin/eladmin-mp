@@ -15,7 +15,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, work_id, work_image, work_status, work_offset_x, work_offset_y, work_image_height, work_image_width, create_time, update_time
+        id, work_id, work_image, work_status,work_offset_x, work_offset_y, work_image_height, work_image_width, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">

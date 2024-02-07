@@ -35,7 +35,7 @@ public class StudioCover implements Serializable {
 
     @TableId(value = "cover_id",type = IdType.AUTO)
     @ApiModelProperty(value = "轮播图id")
-    private Integer coverId;
+    private Long coverId;
 
     @ApiModelProperty(value = "轮播图资源路径")
     private String coverImage;

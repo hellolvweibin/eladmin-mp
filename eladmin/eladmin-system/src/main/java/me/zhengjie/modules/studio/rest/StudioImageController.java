@@ -56,6 +56,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(tags = "图片上传管理")
 @RequestMapping("/api/studioImage")
 public class StudioImageController {
+    //TODO 改成本地的
     private static final String BASE_URL = "/Users/levi_bee/Desktop/Up/MySideline/eladmin-mp/eladmin-web/src/assets/images/";
 
     private final StudioImageService studioImageService;

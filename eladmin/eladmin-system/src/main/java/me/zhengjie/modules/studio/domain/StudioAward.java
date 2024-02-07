@@ -37,7 +37,7 @@ public class StudioAward extends Base implements Serializable {
 
     @TableId(value = "award_id",type = IdType.AUTO)
     @ApiModelProperty(value = "奖项id")
-    private Integer awardId;
+    private Long awardId;
 
     @ApiModelProperty(value = "奖项名称")
     private String awardName;

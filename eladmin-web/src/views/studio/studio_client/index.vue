@@ -119,8 +119,11 @@ export default {
         clientName: [
           { required: true, message: '客户英文名不能为空', trigger: 'blur' }
         ],
-        clientNamec: [
+        clientNameC: [
           { required: true, message: '客户中文名不能为空', trigger: 'blur' }
+        ],
+        clientTag: [
+          { required: true, message: '客户类别不能为空', trigger: 'blur' }
         ]
       },
       queryTypeOptions: [

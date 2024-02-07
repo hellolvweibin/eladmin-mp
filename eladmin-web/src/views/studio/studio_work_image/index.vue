@@ -35,15 +35,14 @@
           </el-form-item>
           <el-form-item label="作品图片" prop="workImage">
             <el-upload
-              action="http://localhost:8000/api/studioImage/upload"
+              action="/api/studioImage/upload"
               list-type="picture-card"
-              :file-list="fileList"
               :on-success="handleSuccess"
               :on-error="handleError"
               :on-exceed="handleExceed"
               :before-upload="beforeUpload"
               :on-file-click="handleFileClick"
-              limit="1"
+              :limit="1"
             >
               <i class="el-icon-plus" />
             </el-upload>
@@ -91,7 +90,8 @@
                 <label class="axis">点击图片拾取坐标</label>
               </div>
               <div>
-                <img id="scope.row.id" :src="require('@/assets/images/'+scope.row.workImage)" style="width: 400px;height: 400px" @click="getImagePosition(scope.$event,scope.row)">
+                <img :src="require('@/assets/images/'+scope.row.workImage)" style="width: 400px;height: 400px" @click="onImageLoad">
+                <canvas ref="canvas" @mousedown="onCanvasMouseDown" />
               </div>
               <div style="margin-top: 5px;text-align: center;">
                 <label>横坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain">{{ scope.row.workOffsetX }}</el-tag>
@@ -127,6 +127,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import crudStudioWorkImage from '@/api/studioWorkImage'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
@@ -152,7 +153,9 @@ export default {
           imageWidth: null, // 存储图片的宽度
           imageHeight: null, // 存储图片的高度
           imageOffsetX: null, // 存储图片的x轴偏移量
-          imageOffsetY: null // 存储图片的y轴偏移量
+          imageOffsetY: null, // 存储图片的y轴偏移量
+          canvas: null,
+          ctx: null
 
         }
       },
@@ -177,6 +180,12 @@ export default {
         { key: 'workStatus', display_name: '作品尺寸' }
       ]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'baseApi',
+      'fileUploadApi'
+    ])
   },
   methods: {
     // 钩子：在获取表格数据之前执行，false 则代表不获取数据
@@ -255,6 +264,38 @@ export default {
     },
     reload() {
       this.$router.go(0)
+    },
+    onImageLoad() {
+      this.$nextTick(() => {
+        this.canvas = this.$refs.canvas
+        this.canvas.width = this.$refs.image.width
+        this.canvas.height = this.$refs.image.height
+        this.ctx = this.canvas.getContext('2d')
+        this.ctx.drawImage(this.$refs.image, 0, 0)
+        this.image = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height)
+      })
+    },
+    onCanvasMouseDown(event) {
+      const popoverRect = this.$refs.popover.$el.getBoundingClientRect()
+      const canvasRect = this.$refs.canvas.getBoundingClientRect()
+      const mouseX = event.clientX - popoverRect.left - canvasRect.left
+      const mouseY = event.clientY - popoverRect.top - canvasRect.top
+
+      // 获取像素颜色
+      const pixel = this.ctx.getImageData(mouseX, mouseY, 1, 1).data
+
+      // 输出颜色信息
+      console.log('Pixel Color:', pixel)
+
+      // 在控制台输出坐标
+      console.log('Canvas Coordinates:', mouseX, mouseY)
+
+      // 获取图片坐标
+      const imageX = mouseX * (this.canvas.width / canvasRect.width)
+      const imageY = mouseY * (this.canvas.height / canvasRect.height)
+
+      // 输出图片坐标
+      console.log('Image Coordinates:', imageX, imageY)
     }
   }
 }
@@ -263,5 +304,10 @@ export default {
 <style scoped>
 .axis {
   font-size: 17px;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

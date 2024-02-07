@@ -21,6 +21,19 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path: '/studio',
+    component: Layout,
+    redirect: '/studio_home',
+    children: [
+      {
+        path: 'studio_home',
+        component: (resolve) => require(['@/views/studio_home.vue'], resolve),
+        name: 'studio_home',
+        meta: { title: '工作室首页', icon: 'index', affix: true, noCache: true }
+      }
+    ]
+  },
+  {
     path: '/redirect',
     component: Layout,
     hidden: true,
@@ -59,7 +72,7 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/studio',
+    path: '/',
     component: Layout,
     redirect: '/studio/studio_base',
     name: '工作室管理',

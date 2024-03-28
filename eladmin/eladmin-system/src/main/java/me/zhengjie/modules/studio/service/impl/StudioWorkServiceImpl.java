@@ -73,6 +73,11 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
     }
 
     @Override
+    public List<StudioWork> findAllByNameC(String workNameC) {
+        return studioWorkMapper.findAllByNameC(workNameC);
+    }
+
+    @Override
     public PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page) {
         List<StudioWorkDTO> studioWorkDto = new ArrayList<>();
         List<StudioWork> source = studioWorkMapper.findAll(criteria);

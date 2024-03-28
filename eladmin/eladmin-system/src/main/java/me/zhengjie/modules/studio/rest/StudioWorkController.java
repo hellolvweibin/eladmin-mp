@@ -74,6 +74,15 @@ public class StudioWorkController {
         return new ResponseEntity<>(studioWorkService.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/getWorkByNameC")
+    @Log("根据中文名查询")
+    @ApiOperation("根据中文名查询")
+    @AnonymousAccess
+    public ResponseEntity<List<StudioWork>> findStudioWorkByNameC(@RequestParam String workNameC){
+        List<StudioWork> studioWorks = studioWorkService.findAllByNameC(workNameC);
+        return new ResponseEntity<>(studioWorks, HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增工作室作品")
     @ApiOperation("新增工作室作品")

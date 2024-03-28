@@ -39,4 +39,6 @@ public interface StudioWorkMapper extends BaseMapper<StudioWork> {
     IPage<StudioBase> findAllSet(@Param("criteria") StudioWorkQueryCriteria criteria, Page<Object> page);
 
     List<StudioWork> findAll(@Param("criteria") StudioWorkQueryCriteria criteria);
+    List<StudioWork> findAllByNameC(@Param("workNameC") String workNameC);
+
 }

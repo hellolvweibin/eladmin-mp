@@ -56,6 +56,8 @@ public interface StudioWorkService extends IService<StudioWork> {
     * @return List<StudioWorkDto>
     */
     List<StudioWork> queryAll(StudioWorkQueryCriteria criteria);
+
+    List<StudioWork> findAllByNameC(String workNameC);
     /**
      * 查询关联数据分页
      * @param criteria 条件

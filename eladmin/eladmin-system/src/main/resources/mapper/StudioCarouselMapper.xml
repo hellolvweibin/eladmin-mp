@@ -30,6 +30,6 @@
                 and carousel_status = #{criteria.carouselStatus}
             </if>
         </where>
-        order by id
+        order by id desc
     </select>
 </mapper>

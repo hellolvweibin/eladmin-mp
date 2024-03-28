@@ -34,6 +34,6 @@
                 and partner_tag = #{criteria.partnerTag}
             </if>
         </where>
-        order by partner_id
+        order by partner_id desc
     </select>
 </mapper>

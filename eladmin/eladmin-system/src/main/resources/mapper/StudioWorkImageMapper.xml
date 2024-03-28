@@ -5,6 +5,8 @@
         <id column="id" property="id"/>
         <result column="work_id" property="workId"/>
         <result column="work_image" property="workImage"/>
+        <result column="work_name" property="workName"/>
+        <result column="work_name_c" property="workNameC"/>
         <result column="work_status" property="workStatus"/>
         <result column="work_offset_x" property="workOffsetX"/>
         <result column="work_offset_y" property="workOffsetY"/>
@@ -15,7 +17,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, work_id, work_image, work_status,work_offset_x, work_offset_y, work_image_height, work_image_width, create_time, update_time
+        id, work_id, work_name,work_name_c,work_image, work_status,work_offset_x, work_offset_y, work_image_height, work_image_width, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -30,6 +32,6 @@
                 and work_status = #{criteria.workStatus}
             </if>
         </where>
-        order by id
+        order by id desc
     </select>
 </mapper>

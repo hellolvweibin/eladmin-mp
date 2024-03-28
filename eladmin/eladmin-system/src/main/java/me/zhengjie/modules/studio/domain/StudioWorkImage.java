@@ -44,6 +44,12 @@ public class StudioWorkImage extends Base implements Serializable {
     @ApiModelProperty(value = "作品id")
     private Long workId;
 
+    @ApiModelProperty(value = "作品英文名")
+    private String workName;
+
+    @ApiModelProperty(value = "作品中文名")
+    private String workNameC;
+
     @NotBlank
     @ApiModelProperty(value = "图片地址")
     private String workImage;

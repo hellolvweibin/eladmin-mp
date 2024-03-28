@@ -35,7 +35,7 @@
                 and work_type = #{criteria.workType}
             </if>
         </where>
-        order by work_id
+        order by work_id desc
     </select>
     <select id="findAllSet" resultMap="BaseResultMap">
         select
@@ -49,6 +49,17 @@
                 and name like concat('%', #{criteria.workNameC}, '%')
             </if>
         </where>
-        order by work_id
+        order by work_id desc
+    </select>
+    <select id="findAllByNameC" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studio_work
+        <where>
+            <if test="workNameC != null and workNameC != ''">
+                and work_name_c like concat('%', #{workNameC}, '%')
+            </if>
+        </where>
+        order by work_id desc
     </select>
 </mapper>

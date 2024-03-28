@@ -31,7 +31,20 @@
       <el-dialog :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px" append-to-body>
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
           <el-form-item label="作品id" prop="workId">
-            <el-input v-model="form.workId" style="width: 340px;" />
+            <el-input v-model="form.workId" style="width: 60%" />
+            <!--            <el-input v-model="form.workId" style="width: 340px;" />-->
+          </el-form-item>
+          <el-form-item label="作品中文名" prop="workNameC">
+            <el-autocomplete
+              v-model="form.workNameC"
+              :fetch-suggestions="querySearchAsync"
+              placeholder="作品中文名"
+              :trigger-on-focus="false"
+              @select="handleSelect"
+            />
+          </el-form-item>
+          <el-form-item label="作品英文名" prop="workName">
+            <el-input v-model="form.workName" style="width: 60%" />
           </el-form-item>
           <el-form-item label="作品图片" prop="workImage">
             <el-upload
@@ -58,16 +71,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="作品图片高度">
-            <el-input v-model="form.workImageHeight" style="width: 340px;" />
+            <el-input v-model="form.workImageHeight" style="width: 52%" />
           </el-form-item>
           <el-form-item label="作品图片宽度">
-            <el-input v-model="form.workImageWidth" style="width: 340px;" />
+            <el-input v-model="form.workImageWidth" style="width: 52%" />
           </el-form-item>
           <el-form-item label="作品x坐标">
-            <el-input v-model="form.workOffsetX" style="width: 340px;" />
+            <el-input v-model="form.workOffsetX" style="width: 52%" />
           </el-form-item>
           <el-form-item label="作品y坐标">
-            <el-input v-model="form.workOffsetY" style="width: 340px;" />
+            <el-input v-model="form.workOffsetY" style="width: 52%" />
           </el-form-item>
         </el-form>
 
@@ -83,6 +96,8 @@
         <el-table-column type="selection" width="55" />
         <el-table-column prop="id" label="记录id" />
         <el-table-column prop="workId" label="作品id" />
+        <el-table-column prop="workName" label="作品英文名" />
+        <el-table-column prop="workNameC" label="作品中文名" />
         <el-table-column prop="workImage" label="作品图片">
           <template scope="scope">
             <el-popover placement="right" trigger="click" @after-leave="reload"> <!--trigger属性值：hover、click、focus 和 manual-->
@@ -134,8 +149,9 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
+import axios from 'axios'
 
-const defaultForm = { id: null, workId: null, workImage: null, workStatus: null, workOffsetX: null, workOffsetY: null, workImageHeight: null, workImageWidth: null, createTime: null, updateTime: null }
+const defaultForm = { id: null, workId: null, workName: null, workNameC: null, workImage: null, workStatus: null, workOffsetX: null, workOffsetY: null, workImageHeight: null, workImageWidth: null, createTime: null, updateTime: null }
 export default {
   name: 'StudioWorkImage',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -306,6 +322,32 @@ export default {
 
       // 输出图片坐标
       console.log('Image Coordinates:', imageX, imageY)
+    },
+    // 根据中文名查询作品
+    querySearchAsync(queryString, cb) {
+      if (queryString) {
+        axios.get(`/api/studioWork/getWorkByNameC?workNameC=${queryString}`)
+          .then(response => {
+            // 假设后端返回的数据格式为 [{ studioId: '1', studioName: 'Name' }]
+            console.log(response.data)
+            const results = response.data.map(item => ({
+              value: item.workNameC, // 用于显示的字符串
+              ...item // 保留所有数据
+            }))
+            cb(results) // 使用回调函数返回处理后的结果
+          })
+          .catch(error => {
+            console.error('Error during the autocomplete search:', error)
+            cb([])
+          })
+      } else {
+        cb([])
+      }
+    },
+    handleSelect(item) {
+      this.form.workId = item.workId
+      this.form.workName = item.workName
+      console.log(item)
     }
   }
 }

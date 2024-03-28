@@ -22,6 +22,7 @@ import lombok.Data;
 * @date 2023-12-11
 **/
 @Data
-public class StudioCoverQueryCriteria{
-    private Long coverId;
+public class StudioCarouselQueryCriteria {
+    private Long workId;
+    private String carouselStatus;
 }

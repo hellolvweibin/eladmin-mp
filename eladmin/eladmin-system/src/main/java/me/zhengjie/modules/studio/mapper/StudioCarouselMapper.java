@@ -15,8 +15,8 @@
 */
 package me.zhengjie.modules.studio.mapper;
 
-import me.zhengjie.modules.studio.domain.StudioCover;
-import me.zhengjie.modules.studio.domain.vo.StudioCoverQueryCriteria;
+import me.zhengjie.modules.studio.domain.StudioCarousel;
+import me.zhengjie.modules.studio.domain.vo.StudioCarouselQueryCriteria;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,9 +29,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 * @date 2023-12-11
 **/
 @Mapper
-public interface StudioCoverMapper extends BaseMapper<StudioCover> {
+public interface StudioCarouselMapper extends BaseMapper<StudioCarousel> {
 
-    IPage<StudioCover> findAll(@Param("criteria") StudioCoverQueryCriteria criteria, Page<Object> page);
+    IPage<StudioCarousel> findAll(@Param("criteria") StudioCarouselQueryCriteria criteria, Page<Object> page);
 
-    List<StudioCover> findAll(@Param("criteria") StudioCoverQueryCriteria criteria);
+    List<StudioCarousel> findAll(@Param("criteria") StudioCarouselQueryCriteria criteria);
 }

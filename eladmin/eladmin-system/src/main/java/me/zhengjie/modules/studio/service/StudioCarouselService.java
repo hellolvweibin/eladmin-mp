@@ -15,9 +15,9 @@
 */
 package me.zhengjie.modules.studio.service;
 
-import me.zhengjie.modules.studio.domain.StudioCover;
-import me.zhengjie.modules.studio.domain.vo.StudioCoverQueryCriteria;
-import java.util.Map;
+import me.zhengjie.modules.studio.domain.StudioCarousel;
+import me.zhengjie.modules.studio.domain.vo.StudioCarouselQueryCriteria;
+
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +30,7 @@ import me.zhengjie.utils.PageResult;
 * @author lv
 * @date 2023-12-11
 **/
-public interface StudioCoverService extends IService<StudioCover> {
+public interface StudioCarouselService extends IService<StudioCarousel> {
 
     /**
     * 查询数据分页
@@ -38,26 +38,26 @@ public interface StudioCoverService extends IService<StudioCover> {
     * @param page 分页参数
     * @return PageResult
     */
-    PageResult<StudioCover> queryAll(StudioCoverQueryCriteria criteria, Page<Object> page);
+    PageResult<StudioCarousel> queryAll(StudioCarouselQueryCriteria criteria, Page<Object> page);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
     * @return List<StudioCoverDto>
     */
-    List<StudioCover> queryAll(StudioCoverQueryCriteria criteria);
+    List<StudioCarousel> queryAll(StudioCarouselQueryCriteria criteria);
 
     /**
     * 创建
     * @param resources /
     */
-    void create(StudioCover resources);
+    void create(StudioCarousel resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(StudioCover resources);
+    void update(StudioCarousel resources);
 
     /**
     * 多选删除
@@ -71,5 +71,5 @@ public interface StudioCoverService extends IService<StudioCover> {
     * @param response /
     * @throws IOException /
     */
-    void download(List<StudioCover> all, HttpServletResponse response) throws IOException;
+    void download(List<StudioCarousel> all, HttpServletResponse response) throws IOException;
 }

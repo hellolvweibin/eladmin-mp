@@ -15,14 +15,14 @@
 */
 package me.zhengjie.modules.studio.service.impl;
 
-import me.zhengjie.modules.studio.domain.StudioCover;
+import me.zhengjie.modules.studio.domain.StudioCarousel;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import me.zhengjie.modules.studio.service.StudioCoverService;
-import me.zhengjie.modules.studio.domain.vo.StudioCoverQueryCriteria;
-import me.zhengjie.modules.studio.mapper.StudioCoverMapper;
+import me.zhengjie.modules.studio.service.StudioCarouselService;
+import me.zhengjie.modules.studio.domain.vo.StudioCarouselQueryCriteria;
+import me.zhengjie.modules.studio.mapper.StudioCarouselMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import me.zhengjie.utils.PageUtil;
@@ -41,32 +41,32 @@ import me.zhengjie.utils.PageResult;
 **/
 @Service
 @RequiredArgsConstructor
-public class StudioCoverServiceImpl extends ServiceImpl<StudioCoverMapper, StudioCover> implements StudioCoverService {
+public class StudioCarouselServiceImpl extends ServiceImpl<StudioCarouselMapper, StudioCarousel> implements StudioCarouselService {
 
-    private final StudioCoverMapper studioCoverMapper;
+    private final StudioCarouselMapper studioCarouselMapper;
 
     @Override
-    public PageResult<StudioCover> queryAll(StudioCoverQueryCriteria criteria, Page<Object> page){
-        return PageUtil.toPage(studioCoverMapper.findAll(criteria, page));
+    public PageResult<StudioCarousel> queryAll(StudioCarouselQueryCriteria criteria, Page<Object> page){
+        return PageUtil.toPage(studioCarouselMapper.findAll(criteria, page));
     }
 
     @Override
-    public List<StudioCover> queryAll(StudioCoverQueryCriteria criteria){
-        return studioCoverMapper.findAll(criteria);
+    public List<StudioCarousel> queryAll(StudioCarouselQueryCriteria criteria){
+        return studioCarouselMapper.findAll(criteria);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void create(StudioCover resources) {
+    public void create(StudioCarousel resources) {
         save(resources);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(StudioCover resources) {
-        StudioCover studioCover = getById(resources.getCoverId());
-        studioCover.copy(resources);
-        saveOrUpdate(studioCover);
+    public void update(StudioCarousel resources) {
+        StudioCarousel studioCarousel = getById(resources.getId());
+        studioCarousel.copy(resources);
+        saveOrUpdate(studioCarousel);
     }
 
     @Override
@@ -76,11 +76,11 @@ public class StudioCoverServiceImpl extends ServiceImpl<StudioCoverMapper, Studi
     }
 
     @Override
-    public void download(List<StudioCover> all, HttpServletResponse response) throws IOException {
+    public void download(List<StudioCarousel> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (StudioCover studioCover : all) {
+        for (StudioCarousel studioCarousel : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("轮播图资源路径", studioCover.getCoverImage());
+            map.put("轮播图资源路径", studioCarousel.getCarouselImage());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

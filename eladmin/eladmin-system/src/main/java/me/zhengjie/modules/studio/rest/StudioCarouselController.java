@@ -17,21 +17,30 @@ package me.zhengjie.modules.studio.rest;
 
 import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
-import me.zhengjie.modules.studio.domain.StudioCover;
-import me.zhengjie.modules.studio.service.StudioCoverService;
-import me.zhengjie.modules.studio.domain.vo.StudioCoverQueryCriteria;
+import me.zhengjie.modules.studio.domain.Image;
+import me.zhengjie.modules.studio.domain.Result;
+import me.zhengjie.modules.studio.domain.StudioCarousel;
+import me.zhengjie.modules.studio.service.StudioCarouselService;
+import me.zhengjie.modules.studio.domain.vo.StudioCarouselQueryCriteria;
 import lombok.RequiredArgsConstructor;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.UUID;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import me.zhengjie.utils.PageResult;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * @author lv
@@ -40,33 +49,33 @@ import me.zhengjie.utils.PageResult;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "工作室轮播图管理")
-@RequestMapping("/api/studioCover")
-public class StudioCoverController {
+@RequestMapping("/api/studioCarousel")
+public class StudioCarouselController {
 
-    private final StudioCoverService studioCoverService;
+    private final StudioCarouselService studioCarouselService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @AnonymousAccess
-    public void exportStudioCover(HttpServletResponse response, StudioCoverQueryCriteria criteria) throws IOException {
-        studioCoverService.download(studioCoverService.queryAll(criteria), response);
+    public void exportStudioCarousel(HttpServletResponse response, StudioCarouselQueryCriteria criteria) throws IOException {
+        studioCarouselService.download(studioCarouselService.queryAll(criteria), response);
     }
 
     @GetMapping
     @Log("查询工作室轮播图")
     @ApiOperation("查询工作室轮播图")
     @AnonymousAccess
-    public ResponseEntity<PageResult<StudioCover>> queryStudioCover(StudioCoverQueryCriteria criteria, Page<Object> page){
-        return new ResponseEntity<>(studioCoverService.queryAll(criteria,page),HttpStatus.OK);
+    public ResponseEntity<PageResult<StudioCarousel>> queryStudioCarousel(StudioCarouselQueryCriteria criteria, Page<Object> page){
+        return new ResponseEntity<>(studioCarouselService.queryAll(criteria,page),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增工作室轮播图")
     @ApiOperation("新增工作室轮播图")
     @AnonymousAccess
-    public ResponseEntity<Object> createStudioCover(@Validated @RequestBody StudioCover resources){
-        studioCoverService.create(resources);
+    public ResponseEntity<Object> createStudioCarousel(@Validated @RequestBody StudioCarousel resources){
+        studioCarouselService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -74,8 +83,8 @@ public class StudioCoverController {
     @Log("修改工作室轮播图")
     @ApiOperation("修改工作室轮播图")
     @AnonymousAccess
-    public ResponseEntity<Object> updateStudioCover(@Validated @RequestBody StudioCover resources){
-        studioCoverService.update(resources);
+    public ResponseEntity<Object> updateStudioCarousel(@Validated @RequestBody StudioCarousel resources){
+        studioCarouselService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -83,8 +92,8 @@ public class StudioCoverController {
     @Log("删除工作室轮播图")
     @ApiOperation("删除工作室轮播图")
     @AnonymousAccess
-    public ResponseEntity<Object> deleteStudioCover(@RequestBody List<Integer> ids) {
-        studioCoverService.deleteAll(ids);
+    public ResponseEntity<Object> deleteStudioCarousel(@RequestBody List<Integer> ids) {
+        studioCarouselService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

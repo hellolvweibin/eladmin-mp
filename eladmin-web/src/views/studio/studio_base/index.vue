@@ -52,8 +52,16 @@
         <el-table-column prop="studioId" label="工作室id" />
         <el-table-column prop="studioName" label="工作室英文名" />
         <el-table-column prop="studioNameC" label="工作室中文名" />
-        <el-table-column prop="studioDes" label="工作室英文描述" />
-        <el-table-column prop="studioDesC" label="工作室中文描述" />
+        <el-table-column prop="studioDes" label="工作室英文描述" :show-overflow-tooltip="true">
+          <template slot-scope="{row}">
+            <span>{{ row.studioDes }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="studioDesC" label="工作室中文描述" :show-overflow-tooltip="true">
+          <template slot-scope="{row}">
+            <span>{{ row.studioDesC }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="studioLoc" label="工作室英文地址" />
         <el-table-column prop="studioLocC" label="工作室中文地址" />
         <el-table-column prop="studioMail" label="工作室邮箱" />
@@ -123,5 +131,5 @@ export default {
 </script>
 
 <style scoped>
-
+.el-tooltip__popper{font-size: 14px; max-width:40% }/* 设置显示隐藏部分内容，按40%显示 */
 </style>

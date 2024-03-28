@@ -100,6 +100,12 @@ export const constantRouterMap = [
         meta: { title: '作品图集管理', icon: 'index' }
       },
       {
+        path: 'studio_carousel',
+        component: (resolve) => require(['@/views/studio/studio_carousel/index'], resolve),
+        name: '作品轮播图管理',
+        meta: { title: '作品轮播图管理', icon: 'java' }
+      },
+      {
         path: 'studio_client',
         component: (resolve) => require(['@/views/studio/studio_client/index'], resolve),
         name: '客户管理',

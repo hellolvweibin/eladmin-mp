@@ -105,15 +105,16 @@
                 <label class="axis">点击图片拾取坐标</label>
               </div>
               <div class="img-click-body">
-                <img ref="popImgs" :src="require('@/assets/images/'+scope.row.workImage)" style="width: 400px;height: 400px">
+                <img :ref="`popImg${scope.$index}`" :src="'/static/img/'+scope.row.workImage" style="width: 400px;height: 400px">
+                <!--                <img ref="popImgs" :src="'/static/img/'+scope.row.workImage" style="width: 400px;height: 400px">-->
                 <div class="img-click-cover" @click="doLockPoint(scope.$index, $event)" />
-                <!--                <canvas ref="canvas" @mousedown="onCanvasMouseDown" />-->
+                <div class="img-click-cover-point" :style="{ left: `${scope.row.workOffsetX - 5}px`, top: `${scope.row.workOffsetY - 5}px` }" />
               </div>
               <div style="margin-top: 5px;text-align: center;">
                 <label>横坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain">{{ scope.row.workOffsetX || 0 }}</el-tag>
                 <label>纵坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain"> {{ scope.row.workOffsetY || 0 }}</el-tag>
               </div>
-              <img slot="reference" :src="require('@/assets/images/'+scope.row.workImage)" style="width: 70px;height: 70px; cursor:pointer">
+              <img slot="reference" :src="'/static/img/'+scope.row.workImage" style="width: 70px;height: 70px; cursor:pointer">
             </el-popover>
           </template>
 
@@ -280,9 +281,10 @@ export default {
     doLockPoint(i, e) {
       const x = e.clientX // 鼠标坐标
       const y = e.clientY
-      const imgInfo = this.$refs.popImgs.getBoundingClientRect()
+      const imgInfo = this.$refs[`popImg${i}`].getBoundingClientRect()
       const imgLeft = imgInfo.left // 图片坐标
       const imgTop = imgInfo.top
+      console.log(x, y, imgLeft, imgTop, imgInfo, this.$refs.popImgs)
       this.$set(this.crud.data[i], 'workOffsetX', x - imgLeft) // 刷新页面
       this.crud.data[i].workOffsetX = (x - imgLeft).toFixed(0) // 相对坐标
       this.crud.data[i].workOffsetY = (y - imgTop).toFixed(0)
@@ -368,6 +370,16 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.img-click-cover-point {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  position: absolute;
+  background-color: #13ce66;
+  border: 2px solid #FFF;
+  box-sizing: border-box;
 }
 
 canvas {

@@ -4,8 +4,6 @@
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
         <!-- 搜索 -->
-        <label class="el-form-item-label">作品id</label>
-        <el-input v-model="query.workId" clearable placeholder="作品id" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <label class="el-form-item-label">作品尺寸</label>
         <el-select
           v-model="query.carouselStatus"
@@ -30,9 +28,6 @@
       <!--表单组件-->
       <el-dialog :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px" append-to-body>
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
-          <el-form-item label="作品id" prop="workId">
-            <el-input v-model="form.workId" style="width: 340px;" />
-          </el-form-item>
           <el-form-item label="轮播图图片" prop="carouselImage">
             <el-upload
               action="/api/studioImage/upload"
@@ -82,7 +77,6 @@
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
         <el-table-column prop="id" label="记录id" />
-        <el-table-column prop="workId" label="作品id" />
         <el-table-column prop="carouselImage" label="作品图片">
           <template scope="scope">
             <el-popover placement="right" trigger="click" @after-leave="reload"> <!--trigger属性值：hover、click、focus 和 manual-->
@@ -90,15 +84,15 @@
                 <label class="axis">点击图片拾取坐标</label>
               </div>
               <div class="img-click-body">
-                <img ref="popImgs" :src="require('@/assets/images/'+scope.row.carouselImage)" style="width: 400px;height: 400px">
+                <img :ref="`popImg${scope.$index}`" :src="'/static/img/'+scope.row.carouselImage" style="width: 400px;height: 400px">
                 <div class="img-click-cover" @click="doLockPoint(scope.$index, $event)" />
-                <!--                <canvas ref="canvas" @mousedown="onCanvasMouseDown" />-->
+                <div class="img-click-cover-point" :style="{ left: `${scope.row.carouselOffsetX - 5}px`, top: `${scope.row.carouselOffsetY - 5}px` }" />
               </div>
               <div style="margin-top: 5px;text-align: center;">
                 <label>横坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain">{{ scope.row.carouselOffsetX || 0 }}</el-tag>
                 <label>纵坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain"> {{ scope.row.carouselOffsetY || 0 }}</el-tag>
               </div>
-              <img slot="reference" :src="require('@/assets/images/'+scope.row.carouselImage)" style="width: 70px;height: 70px; cursor:pointer">
+              <img slot="reference" :src="'/static/img/'+scope.row.carouselImage" style="width: 70px;height: 70px; cursor:pointer">
             </el-popover>
           </template>
 
@@ -135,7 +129,7 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
-const defaultForm = { id: null, workId: null, carouselImage: null, carouselStatus: null, carouselOffsetX: null, carouselOffsetY: null, carouselHeight: null, carouselWidth: null, createTime: null, updateTime: null }
+const defaultForm = { id: null, carouselImage: null, carouselStatus: null, carouselOffsetX: null, carouselOffsetY: null, carouselHeight: null, carouselWidth: null, createTime: null, updateTime: null }
 export default {
   name: 'StudioCarousel',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -165,9 +159,6 @@ export default {
         del: ['admin', 'studioWorkImage:del']
       },
       rules: {
-        workId: [
-          { required: true, message: '作品id不能为空', trigger: 'blur' }
-        ],
         carouselImage: [
           { required: true, message: '图片地址不能为空', trigger: 'blur' }
         ],
@@ -176,7 +167,6 @@ export default {
         ]
       },
       queryTypeOptions: [
-        { key: 'workId', display_name: '作品id' },
         { key: 'carouselStatus', display_name: '轮播图尺寸' }
       ]
     }
@@ -264,7 +254,7 @@ export default {
     doLockPoint(i, e) {
       const x = e.clientX // 鼠标坐标
       const y = e.clientY
-      const imgInfo = this.$refs.popImgs.getBoundingClientRect()
+      const imgInfo = this.$refs[`popImg${i}`].getBoundingClientRect()
       const imgLeft = imgInfo.left // 图片坐标
       const imgTop = imgInfo.top
       this.$set(this.crud.data[i], 'carouselOffsetX', x - imgLeft) // 刷新页面
@@ -326,6 +316,15 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.img-click-cover-point {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  position: absolute;
+  background-color: #13ce66;
+  border: 2px solid #FFF;
+  box-sizing: border-box;
 }
 
 canvas {

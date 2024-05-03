@@ -21,7 +21,7 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '/studio',
+    path: '/',
     component: Layout,
     redirect: '/studio_home',
     children: [
@@ -44,19 +44,19 @@ export const constantRouterMap = [
       }
     ]
   },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: (resolve) => require(['@/views/home'], resolve),
-        name: 'Dashboard',
-        meta: { title: '首页', icon: 'index', affix: true, noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: (resolve) => require(['@/views/home'], resolve),
+  //       name: 'Dashboard',
+  //       meta: { title: '首页', icon: 'index', affix: true, noCache: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/user',
     component: Layout,
@@ -72,9 +72,9 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/',
+    path: '/studio',
     component: Layout,
-    redirect: '/studio/studio_base',
+    redirect: 'studio_base',
     name: '工作室管理',
     meta: {
       title: '工作室管理',
@@ -97,7 +97,7 @@ export const constantRouterMap = [
         path: 'studio_work_image',
         component: (resolve) => require(['@/views/studio/studio_work_image/index'], resolve),
         name: '作品图集管理',
-        meta: { title: '作品图集管理', icon: 'index' }
+        meta: { title: '作品图集管理', icon: 'Steve-Jobs' }
       },
       {
         path: 'studio_carousel',

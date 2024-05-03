@@ -40,10 +40,6 @@ public class StudioCarousel extends Base implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @NotNull
-    @ApiModelProperty(value = "作品id")
-    private Long workId;
-
     @NotBlank
     @ApiModelProperty(value = "轮播图地址")
     private String carouselImage;

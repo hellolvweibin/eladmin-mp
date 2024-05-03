@@ -3,7 +3,6 @@
 <mapper namespace="me.zhengjie.modules.studio.mapper.StudioCarouselMapper">
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioCarousel">
         <id column="id" property="id"/>
-        <result column="work_id" property="workId"/>
         <result column="carousel_image" property="carouselImage"/>
         <result column="carousel_status" property="carouselStatus"/>
         <result column="carousel_offset_x" property="carouselOffsetX"/>
@@ -15,7 +14,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, work_id, carousel_image, carousel_status,carousel_offset_x, carousel_offset_y, carousel_height, carousel_width, create_time, update_time
+        id, carousel_image, carousel_status,carousel_offset_x, carousel_offset_y, carousel_height, carousel_width, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -23,9 +22,6 @@
         <include refid="Base_Column_List"/>
         from studio_carousel
         <where>
-            <if test="criteria.workId != null">
-                and work_id = #{criteria.workId}
-            </if>
             <if test="criteria.carouselStatus != null">
                 and carousel_status = #{criteria.carouselStatus}
             </if>

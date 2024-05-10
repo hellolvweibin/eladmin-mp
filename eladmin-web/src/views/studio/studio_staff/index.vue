@@ -21,9 +21,13 @@
           <el-form-item label="员工中文名" prop="staffNameC">
             <el-input v-model="form.staffNameC" style="width: 300px;" />
           </el-form-item>
+          <el-form-item label="员工职称" prop="staffTitle">
+            <el-input v-model="form.staffTitle" style="width: 300px;" />
+          </el-form-item>
           <el-form-item label="员工性别" prop="staffSex">
             <el-radio v-for="item in dict.studio_staff_sex" :key="item.id" v-model="form.staffSex" :label="item.value">{{ item.label }}</el-radio>
           </el-form-item>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
@@ -36,11 +40,20 @@
         <el-table-column prop="staffId" label="员工id" />
         <el-table-column prop="staffName" label="员工英文名" />
         <el-table-column prop="staffNameC" label="员工中文名" />
+        <el-table-column prop="staffTitle" label="员工职称">
+          <template slot-scope="scope">
+            <el-tag
+              type="success"
+              effect="dark"
+            >{{ scope.row.staffTitle }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="staffSex" label="员工性别">
           <template slot-scope="scope">
             {{ dict.label.studio_staff_sex[scope.row.staffSex] }}
           </template>
         </el-table-column>
+
         <el-table-column v-if="checkPer(['admin','studioStaff:edit','studioStaff:del'])" label="操作" width="150px" align="center">
           <template slot-scope="scope">
             <udOperation
@@ -64,7 +77,7 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
-const defaultForm = { staffId: null, staffName: null, staffNameC: null, staffSex: null, staffStudioId: null, createTime: null, updateTime: null }
+const defaultForm = { staffId: null, staffName: null, staffNameC: null, staffSex: null, staffTitle: null, staffStudioId: null, createTime: null, updateTime: null }
 export default {
   name: 'StudioStaff',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -89,6 +102,9 @@ export default {
         ],
         staffSex: [
           { required: true, message: '员工性别不能为空', trigger: 'blur' }
+        ],
+        staffTitle: [
+          { required: true, message: '员工职称不能为空', trigger: 'blur' }
         ]
       },
       queryTypeOptions: [

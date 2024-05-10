@@ -43,6 +43,9 @@ public class StudioStaff extends Base implements Serializable {
     @ApiModelProperty(value = "员工英文名")
     private String staffName;
 
+    @ApiModelProperty(value = "员工职称")
+    private String staffTitle;
+
     @NotBlank
     @ApiModelProperty(value = "员工中文名")
     private String staffNameC;

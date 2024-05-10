@@ -6,13 +6,14 @@
         <result column="staff_name" property="staffName"/>
         <result column="staff_name_c" property="staffNameC"/>
         <result column="staff_sex" property="staffSex"/>
+        <result column="staff_title" property="staffTitle"/>
         <result column="staff_studio_id" property="staffStudioId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        staff_id, staff_name, staff_name_c, staff_sex, staff_studio_id, create_time, update_time
+        staff_id, staff_name, staff_name_c, staff_sex,staff_title, staff_studio_id, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">

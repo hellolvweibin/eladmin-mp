@@ -56,6 +56,9 @@ public class StudioWorkStaff implements Serializable {
     @ApiModelProperty(value = "成员中文名")
     private String staffNameC;
 
+    @ApiModelProperty(value = "成员职称")
+    private String staffTitle;
+
     public void copy(StudioWorkStaff source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

@@ -50,6 +50,19 @@
               />
             </el-select>
           </el-form-item>
+          <el-form-item label="作品标签">
+            <el-select v-model="tmpWorkTags" multiple filterable placeholder="请选择" @change="onTagsChange">
+              <el-option
+                v-for="item in dict.studio_work_tag"
+                :key="item.id"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="作品发布年">
+            <el-input v-model="form.category" style="width: 340px;" />
+          </el-form-item>
           <el-form-item label="作品英文描述">
             <el-input v-model="form.workDes" :rows="3" type="textarea" style="width: 340px;" />
           </el-form-item>
@@ -107,17 +120,18 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
-const defaultForm = { workId: null, workName: null, workType: null, workDes: null, workClient: null, createTime: null, updateTime: null, workNameC: null, workDesC: null }
+const defaultForm = { workId: null, workName: null, workType: null, workDes: null, workClient: null, workTags: null, category: null, createTime: null, updateTime: null, workNameC: null, workDesC: null }
 export default {
   name: 'StudioWork',
   components: { pagination, crudOperation, rrOperation, udOperation },
   mixins: [presenter(), header(), form(defaultForm), crud()],
-  dicts: ['studio_work_type', 'stuido_work_tag'],
+  dicts: ['studio_work_type', 'studio_work_tag'],
   cruds() {
     return CRUD({ title: '工作室作品', url: 'api/studioWork', idField: 'workId', sort: 'workId,desc', crudMethod: { ...crudStudioWork }})
   },
   data() {
     return {
+      tmpWorkTags: [],
       permission: {
         add: ['admin', 'studioWork:add'],
         edit: ['admin', 'studioWork:edit'],
@@ -146,6 +160,10 @@ export default {
     // 钩子：在获取表格数据之前执行，false 则代表不获取数据
     [CRUD.HOOK.beforeRefresh]() {
       return true
+    },
+    onTagsChange(e) {
+      console.log(e, this.form)
+      this.form.workTags = e.reduce((a, b) => `${a}, ${b}`)
     }
   }
 }

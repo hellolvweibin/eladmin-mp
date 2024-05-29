@@ -58,6 +58,12 @@
               :limit="1"
             >
               <i class="el-icon-plus" />
+              <!--              <div slot="file" slot-scope="{file}" style="width: 100%;height: 100%;">-->
+              <!--                <img-->
+              <!--                  class="el-upload-list__item-thumbnail fit-contain"-->
+              <!--                  :src="file.url"-->
+              <!--                >-->
+              <!--              </div>-->
             </el-upload>
           </el-form-item>
           <el-form-item label="作品尺寸" prop="workStatus">
@@ -105,7 +111,8 @@
                 <label class="axis">点击图片拾取坐标</label>
               </div>
               <div class="img-click-body">
-                <img :ref="`popImg${scope.$index}`" :src="'/static/img/'+scope.row.workImage" style="width: 400px;height: 400px">
+                <img :ref="`popImg${scope.$index}`" class="fit-contain" :src="baseUrl + scope.row.workImage" style="width: 400px;height: 400px">
+                <!--                <img :ref="`popImg${scope.$index}`" class="fit-contain" :src="require('@/assets/images/'+scope.row.workImage)" style="width: 400px;height: 400px">-->
                 <!--                <img ref="popImgs" :src="'/static/img/'+scope.row.workImage" style="width: 400px;height: 400px">-->
                 <div class="img-click-cover" @click="doLockPoint(scope.$index, $event)" />
                 <div class="img-click-cover-point" :style="{ left: `${scope.row.workOffsetX - 5}px`, top: `${scope.row.workOffsetY - 5}px` }" />
@@ -114,7 +121,8 @@
                 <label>横坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain">{{ scope.row.workOffsetX || 0 }}</el-tag>
                 <label>纵坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain"> {{ scope.row.workOffsetY || 0 }}</el-tag>
               </div>
-              <img slot="reference" :src="'/static/img/'+scope.row.workImage" style="width: 70px;height: 70px; cursor:pointer">
+              <img slot="reference" class="fit-contain" :src="baseUrl + scope.row.workImage" style="width: 70px;height: 70px; cursor:pointer">
+              <!--              <img slot="reference" class="fit-contain" :src="require('@/assets/images/'+scope.row.workImage)" style="width: 70px;height: 70px; cursor:pointer">-->
             </el-popover>
           </template>
 
@@ -173,9 +181,9 @@ export default {
           imageOffsetY: null, // 存储图片的y轴偏移量
           canvas: null,
           ctx: null
-
         }
       },
+      baseUrl: '/back/static/img/',
       permission: {
         add: ['admin', 'studioWorkImage:add'],
         edit: ['admin', 'studioWorkImage:edit'],
@@ -386,5 +394,15 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.fit-contain {
+  object-fit: contain;
+}
+</style>
+
+<style>
+.el-upload-list__item-thumbnail {
+  object-fit: contain;
 }
 </style>

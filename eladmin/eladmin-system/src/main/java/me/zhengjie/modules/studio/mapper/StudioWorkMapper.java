@@ -41,4 +41,5 @@ public interface StudioWorkMapper extends BaseMapper<StudioWork> {
     List<StudioWork> findAll(@Param("criteria") StudioWorkQueryCriteria criteria);
     List<StudioWork> findAllByNameC(@Param("workNameC") String workNameC);
 
+    List<StudioWork> findAllByTags(@Param("tags") String tags, @Param("order") String order);
 }

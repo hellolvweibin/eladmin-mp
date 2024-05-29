@@ -84,7 +84,7 @@
                 <label class="axis">点击图片拾取坐标</label>
               </div>
               <div class="img-click-body">
-                <img :ref="`popImg${scope.$index}`" :src="'/static/img/'+scope.row.carouselImage" style="width: 400px;height: 400px">
+                <img :ref="`popImg${scope.$index}`" class="fit-contain" :src="baseUrl+scope.row.carouselImage" style="width: 400px;height: 400px">
                 <div class="img-click-cover" @click="doLockPoint(scope.$index, $event)" />
                 <div class="img-click-cover-point" :style="{ left: `${scope.row.carouselOffsetX - 5}px`, top: `${scope.row.carouselOffsetY - 5}px` }" />
               </div>
@@ -92,7 +92,7 @@
                 <label>横坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain">{{ scope.row.carouselOffsetX || 0 }}</el-tag>
                 <label>纵坐标:</label>&nbsp;&nbsp;<el-tag type="danger" effect="pain"> {{ scope.row.carouselOffsetY || 0 }}</el-tag>
               </div>
-              <img slot="reference" :src="'/static/img/'+scope.row.carouselImage" style="width: 70px;height: 70px; cursor:pointer">
+              <img slot="reference" class="fit-contain" :src="baseUrl+scope.row.carouselImage" style="width: 70px;height: 70px; cursor:pointer">
             </el-popover>
           </template>
 
@@ -153,6 +153,7 @@ export default {
 
         }
       },
+      baseUrl: '/back/static/img/',
       permission: {
         add: ['admin', 'studioWorkImage:add'],
         edit: ['admin', 'studioWorkImage:edit'],
@@ -331,5 +332,15 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.fit-contain {
+  object-fit: contain;
+}
+</style>
+
+<style>
+.el-upload-list__item-thumbnail {
+  object-fit: contain;
 }
 </style>

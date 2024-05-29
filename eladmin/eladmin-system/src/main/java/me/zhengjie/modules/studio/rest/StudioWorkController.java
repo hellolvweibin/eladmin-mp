@@ -83,6 +83,15 @@ public class StudioWorkController {
         return new ResponseEntity<>(studioWorks, HttpStatus.OK);
     }
 
+    @GetMapping("/getWorkByTags")
+    @Log("根据标签查询")
+    @ApiOperation("根据标签查询")
+    @AnonymousAccess
+    public ResponseEntity<PageResult<StudioWork>> findStudioWorkByTags(@RequestParam String workTags, @RequestParam String order){
+//        List<StudioWork> studioWorks = studioWorkService.findAllByTags(workTags, page);
+        return new ResponseEntity<>(studioWorkService.findAllByTags(workTags, order),HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增工作室作品")
     @ApiOperation("新增工作室作品")

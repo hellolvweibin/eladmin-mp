@@ -47,6 +47,9 @@ public class StudioWork extends Base implements Serializable {
     @ApiModelProperty(value = "作品类别")
     private String workType;
 
+    @ApiModelProperty(value = "作品标签")
+    private String workTags;
+
     @ApiModelProperty(value = "作品英文描述")
     private String workDes;
 
@@ -55,6 +58,9 @@ public class StudioWork extends Base implements Serializable {
 
     @ApiModelProperty(value = "作品客户")
     private String workClient;
+
+    @ApiModelProperty(value = "作品客户")
+    private String category;
 
 
 

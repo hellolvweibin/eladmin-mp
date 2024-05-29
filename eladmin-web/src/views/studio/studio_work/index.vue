@@ -81,6 +81,8 @@
             >{{ scope.row.workType }}</el-tag>
           </template>
         </el-table-column>
+        <el-table-column prop="workTags" label="作品标签" />
+        <el-table-column prop="category" label="作品发布年" />
         <el-table-column prop="workClient" label="作品客户" />
         <el-table-column v-if="checkPer(['admin','studioWork:edit','studioWork:del'])" label="操作" width="150px" align="center">
           <template slot-scope="scope">
@@ -110,7 +112,7 @@ export default {
   name: 'StudioWork',
   components: { pagination, crudOperation, rrOperation, udOperation },
   mixins: [presenter(), header(), form(defaultForm), crud()],
-  dicts: ['studio_work_type'],
+  dicts: ['studio_work_type', 'stuido_work_tag'],
   cruds() {
     return CRUD({ title: '工作室作品', url: 'api/studioWork', idField: 'workId', sort: 'workId,desc', crudMethod: { ...crudStudioWork }})
   },

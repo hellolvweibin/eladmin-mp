@@ -34,12 +34,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import me.zhengjie.utils.PageUtil;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.io.IOException;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+
 import me.zhengjie.utils.PageResult;
 
 import static cn.hutool.poi.excel.sax.AttributeName.s;
@@ -75,6 +75,11 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
     @Override
     public List<StudioWork> findAllByNameC(String workNameC) {
         return studioWorkMapper.findAllByNameC(workNameC);
+    }
+
+    @Override
+    public PageResult<StudioWork> findAllByTags(String workTags, String order) {
+        return PageUtil.toPage(studioWorkMapper.findAllByTags(workTags, order));
     }
 
     @Override

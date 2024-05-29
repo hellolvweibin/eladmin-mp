@@ -6,15 +6,17 @@
         <result column="work_name" property="workName"/>
         <result column="work_name_c" property="workNameC"/>
         <result column="work_type" property="workType"/>
+        <result column="work_tags" property="workTags"/>
         <result column="work_des" property="workDes"/>
         <result column="work_des_c" property="workDesC"/>
         <result column="work_client" property="workClient"/>
+        <result column="category" property="category"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        work_id, work_name, work_name_c, work_type, work_des, work_des_c, work_client, create_time, update_time
+        work_id, work_name, work_name_c, work_type, work_tags, work_des, work_des_c, work_client, category, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -61,5 +63,19 @@
             </if>
         </where>
         order by work_id desc
+    </select>
+    <!-- 按标签查询 -->
+    <select id="findAllByTags" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM studio_work
+        WHERE MATCH(work_tags) AGAINST(concat("'", #{tags}, "'") IN BOOLEAN MODE)
+        ORDER BY category
+        <if test="order == 'desc'">
+            DESC
+        </if>
+        <if test="order == 'asc'">
+            ASC
+        </if>
     </select>
 </mapper>

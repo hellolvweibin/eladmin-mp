@@ -14,7 +14,7 @@ const port = 8013 // 端口配置
 module.exports = {
   // hash 模式下可使用
   // publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
-  publicPath: '/',
+  publicPath: '/back/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',

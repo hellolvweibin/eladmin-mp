@@ -50,8 +50,8 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="作品标签">
-            <el-select v-model="tmpWorkTags" multiple filterable placeholder="请选择" @change="onTagsChange">
+          <el-form-item label="作品标签" prop="workTagList">
+            <el-select v-model="form.workTagList" multiple filterable placeholder="请选择" @change="onTagsChange">
               <el-option
                 v-for="item in dict.studio_work_tag"
                 :key="item.id"
@@ -120,7 +120,7 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
-const defaultForm = { workId: null, workName: null, workType: null, workDes: null, workClient: null, workTags: null, category: null, createTime: null, updateTime: null, workNameC: null, workDesC: null }
+const defaultForm = { workId: null, workName: null, workType: null, workDes: null, workClient: null, workTags: null, workTagList: null, category: null, createTime: null, updateTime: null, workNameC: null, workDesC: null }
 export default {
   name: 'StudioWork',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -160,6 +160,11 @@ export default {
     // 钩子：在获取表格数据之前执行，false 则代表不获取数据
     [CRUD.HOOK.beforeRefresh]() {
       return true
+    },
+    [CRUD.HOOK.afterRefresh]() {
+      this.crud.data.forEach(item => {
+        item.workTagList = item.workTags.split(', ')
+      })
     },
     onTagsChange(e) {
       console.log(e, this.form)

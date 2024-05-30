@@ -17,12 +17,14 @@ package me.zhengjie.modules.studio.service.impl;
 
 import cn.hutool.log.Log;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import me.zhengjie.modules.studio.domain.StudioWork;
 import me.zhengjie.modules.studio.domain.StudioWorkImage;
 import me.zhengjie.modules.studio.domain.StudioWorkStaff;
 import me.zhengjie.modules.studio.domain.dto.StudioWorkDTO;
 import me.zhengjie.modules.studio.mapper.StudioWorkImageMapper;
 import me.zhengjie.modules.studio.mapper.StudioWorkStaffMapper;
+import me.zhengjie.modules.studio.mapper.StudioStaffMapper;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -56,15 +58,36 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
     private final StudioWorkMapper studioWorkMapper;
     private final StudioWorkImageMapper studioWorkImageMapper;
     private final StudioWorkStaffMapper studioWorkStaffMapper;
+    private final StudioStaffMapper studioStaffMapper;
 
     @Override
     public StudioWork findById(Long id) {
         return getById(id);
     }
 
+//    @Override
+//    public PageResult<StudioWork> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page){
+//        return PageUtil.toPage(studioWorkMapper.findAll(criteria, page));
+//    }
+
     @Override
-    public PageResult<StudioWork> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page){
-        return PageUtil.toPage(studioWorkMapper.findAll(criteria, page));
+    public PageResult<StudioWorkDTO> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page){
+        IPage<StudioWork> pWorks = studioWorkMapper.findAll(criteria, page);
+        List<StudioWork> works = pWorks.getRecords();
+        System.out.println("-------works-------");
+        System.out.println(works);
+
+        List<StudioWorkDTO> wdtos = new ArrayList<>();
+        works.forEach(item -> {
+            StudioWorkDTO wdto = new StudioWorkDTO();
+            Long wid = item.getWorkId();
+            wdto.setAuthors(studioStaffMapper.findAllByWork(wid));
+            BeanUtils.copyProperties(item, wdto);
+            wdtos.add(wdto);
+        });
+        IPage<StudioWorkDTO> pWdtos = new Page<>(pWorks.getCurrent(), pWorks.getSize(), pWorks.getTotal());
+        pWdtos.setRecords(wdtos);
+        return PageUtil.toPage(pWdtos);
     }
 
     @Override
@@ -77,26 +100,39 @@ public class StudioWorkServiceImpl extends ServiceImpl<StudioWorkMapper, StudioW
         return studioWorkMapper.findAllByNameC(workNameC);
     }
 
+//    @Override
+//    public PageResult<StudioWork> findAllByTags(String workTags, String order) {
+//        return PageUtil.toPage(studioWorkMapper.findAllByTags(workTags, order));
+//    }
     @Override
-    public PageResult<StudioWork> findAllByTags(String workTags, String order) {
-        return PageUtil.toPage(studioWorkMapper.findAllByTags(workTags, order));
+    public List<StudioWorkDTO> findAllByTags(String workTags, String order) {
+        List<StudioWork> works = studioWorkMapper.findAllByTags(workTags, order);
+        List<StudioWorkDTO> wdtos = new ArrayList<>();
+        works.forEach(item -> {
+            StudioWorkDTO wdto = new StudioWorkDTO();
+            Long wid = item.getWorkId();
+            wdto.setAuthors(studioStaffMapper.findAllByWork(wid));
+            BeanUtils.copyProperties(item, wdto);
+            wdtos.add(wdto);
+        });
+        return wdtos;
     }
 
-    @Override
-    public PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page) {
-        List<StudioWorkDTO> studioWorkDto = new ArrayList<>();
-        List<StudioWork> source = studioWorkMapper.findAll(criteria);
-        QueryWrapper<StudioWorkStaff> queryStaffWrapper = new QueryWrapper<>();
-        for (StudioWork studioWork : source) {
-            StudioWorkDTO target = new StudioWorkDTO();
-            BeanUtils.copyProperties(source,target);
-            Long workId = studioWork.getWorkId();
-            queryStaffWrapper.eq("work_id",workId);
-            List<StudioWorkStaff> studioWorkStaff = studioWorkStaffMapper.selectList(queryStaffWrapper);
-            target.setAuthors(studioWorkStaff);
-        }
-        return PageUtil.toPage(studioWorkDto);
-    }
+//    @Override
+//    public PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page) {
+//        List<StudioWorkDTO> studioWorkDto = new ArrayList<>();
+//        List<StudioWork> source = studioWorkMapper.findAll(criteria);
+//        QueryWrapper<StudioWorkStaff> queryStaffWrapper = new QueryWrapper<>();
+//        for (StudioWork studioWork : source) {
+//            StudioWorkDTO target = new StudioWorkDTO();
+//            BeanUtils.copyProperties(source,target);
+//            Long workId = studioWork.getWorkId();
+//            queryStaffWrapper.eq("work_id",workId);
+//            List<StudioWorkStaff> studioWorkStaff = studioWorkStaffMapper.selectList(queryStaffWrapper);
+////            target.setAuthors(studioWorkStaff);
+//        }
+//        return PageUtil.toPage(studioWorkDto);
+//    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

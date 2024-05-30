@@ -16,6 +16,7 @@
 package me.zhengjie.modules.studio.mapper;
 
 import me.zhengjie.modules.studio.domain.StudioStaff;
+import me.zhengjie.modules.studio.domain.dto.StudioStaffWorkRoleDTO;
 import me.zhengjie.modules.studio.domain.vo.StudioStaffQueryCriteria;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -34,4 +35,6 @@ public interface StudioStaffMapper extends BaseMapper<StudioStaff> {
     IPage<StudioStaff> findAll(@Param("criteria") StudioStaffQueryCriteria criteria, Page<Object> page);
 
     List<StudioStaff> findAll(@Param("criteria") StudioStaffQueryCriteria criteria);
+
+    List<StudioStaffWorkRoleDTO> findAllByWork(@Param("workId") Long workId);
 }

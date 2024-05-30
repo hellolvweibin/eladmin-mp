@@ -57,11 +57,18 @@ public class StudioWorkController {
         studioWorkService.download(studioWorkService.queryAll(criteria), response);
     }
 
+//    @GetMapping
+//    @Log("查询工作室作品")
+//    @ApiOperation("查询工作室作品")
+//    @AnonymousAccess
+//    public ResponseEntity<PageResult<StudioWork>> queryStudioWork(StudioWorkQueryCriteria criteria, Page<Object> page){
+//        return new ResponseEntity<>(studioWorkService.queryAll(criteria, page),HttpStatus.OK);
+//    }
     @GetMapping
     @Log("查询工作室作品")
     @ApiOperation("查询工作室作品")
     @AnonymousAccess
-    public ResponseEntity<PageResult<StudioWork>> queryStudioWork(StudioWorkQueryCriteria criteria, Page<Object> page){
+    public ResponseEntity<PageResult<StudioWorkDTO>> queryStudioWork(StudioWorkQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(studioWorkService.queryAll(criteria, page),HttpStatus.OK);
     }
 
@@ -87,10 +94,19 @@ public class StudioWorkController {
     @Log("根据标签查询")
     @ApiOperation("根据标签查询")
     @AnonymousAccess
-    public ResponseEntity<PageResult<StudioWork>> findStudioWorkByTags(@RequestParam String workTags, @RequestParam String order){
+    public ResponseEntity<List<StudioWorkDTO>> findStudioWorkByTags(@RequestParam String workTags, @RequestParam String order){
 //        List<StudioWork> studioWorks = studioWorkService.findAllByTags(workTags, page);
         return new ResponseEntity<>(studioWorkService.findAllByTags(workTags, order),HttpStatus.OK);
     }
+
+//    @GetMapping("/getWorkByTags")
+//    @Log("根据标签查询")
+//    @ApiOperation("根据标签查询")
+//    @AnonymousAccess
+//    public ResponseEntity<PageResult<StudioWork>> findStudioWorkByTags(@RequestParam String workTags, @RequestParam String order){
+////        List<StudioWork> studioWorks = studioWorkService.findAllByTags(workTags, page);
+//        return new ResponseEntity<>(studioWorkService.findAllByTags(workTags, order),HttpStatus.OK);
+//    }
 
     @PostMapping
     @Log("新增工作室作品")

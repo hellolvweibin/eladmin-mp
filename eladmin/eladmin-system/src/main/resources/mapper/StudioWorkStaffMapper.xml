@@ -6,13 +6,14 @@
         <result column="work_id" property="workId"/>
         <result column="staff_id" property="staffId"/>
         <result column="staff_tag" property="staffTag"/>
-        <result column="staff_name" property="staffName"/>
-        <result column="staff_name_c" property="staffNameC"/>
-        <result column="staff_title" property="staffTitle"/>
+<!--        <result column="staff_name" property="staffName"/>-->
+<!--        <result column="staff_name_c" property="staffNameC"/>-->
+<!--        <result column="staff_title" property="staffTitle"/>-->
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, work_id, staff_id, staff_tag, staff_name, staff_name_c,staff_title
+        id, work_id, staff_id, staff_tag
+--         id, work_id, staff_id, staff_tag, staff_name, staff_name_c,staff_title
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">

@@ -12,6 +12,14 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
+    <resultMap id="WorkRoleResMap" type="me.zhengjie.modules.studio.domain.dto.StudioStaffWorkRoleDTO">
+        <id column="staff_id" property="staffId"/>
+        <result column="staff_name" property="staffName"/>
+        <result column="staff_name_c" property="staffNameC"/>
+        <result column="staff_title" property="staffTitle"/>
+        <result column="staff_tag" property="staffTag"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         staff_id, staff_name, staff_name_c, staff_sex,staff_title, staff_studio_id, create_time, update_time
     </sql>
@@ -29,5 +37,17 @@
             </if>
         </where>
         order by staff_id desc
+    </select>
+
+    <sql id="Staff_Role_Column_List">
+        studio_staff.staff_id, staff_name, staff_name_c, staff_title, staff_tag
+    </sql>
+
+    <select id="findAllByWork" resultMap="WorkRoleResMap">
+        select
+        <include refid="Staff_Role_Column_List"/>
+        from studio_staff
+        join studio_work_staff on studio_staff.staff_id = studio_work_staff.staff_id
+        where studio_work_staff.work_id = #{workId}
     </select>
 </mapper>

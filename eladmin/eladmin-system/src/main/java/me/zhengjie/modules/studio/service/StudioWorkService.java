@@ -48,8 +48,8 @@ public interface StudioWorkService extends IService<StudioWork> {
     * @param page 分页参数
     * @return PageResult
     */
-    PageResult<StudioWork> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page);
-
+//    PageResult<StudioWork> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page);
+    PageResult<StudioWorkDTO> queryAll(StudioWorkQueryCriteria criteria, Page<Object> page);
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
@@ -59,14 +59,15 @@ public interface StudioWorkService extends IService<StudioWork> {
 
     List<StudioWork> findAllByNameC(String workNameC);
 
-    PageResult<StudioWork> findAllByTags(String workTags, String order);
+//    PageResult<StudioWork> findAllByTags(String workTags, String order);
+    List<StudioWorkDTO> findAllByTags(String workTags, String order);
     /**
      * 查询关联数据分页
      * @param criteria 条件
      * @param page 分页参数
      * @return PageResult
      */
-    PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page);
+//    PageResult<StudioWorkDTO> queryAllSet(StudioWorkQueryCriteria criteria, Page<Object> page);
 
 
     /**

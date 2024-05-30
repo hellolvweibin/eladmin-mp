@@ -83,8 +83,8 @@ public class StudioWorkStaffServiceImpl extends ServiceImpl<StudioWorkStaffMappe
             map.put("作品id", studioWorkStaff.getWorkId());
             map.put("成员id", studioWorkStaff.getStaffId());
             map.put("成员tag", studioWorkStaff.getStaffTag());
-            map.put("成员英文名", studioWorkStaff.getStaffName());
-            map.put("成员中文名", studioWorkStaff.getStaffNameC());
+//            map.put("成员英文名", studioWorkStaff.getStaffName());
+//            map.put("成员中文名", studioWorkStaff.getStaffNameC());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

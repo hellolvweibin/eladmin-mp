@@ -72,21 +72,63 @@
           <el-form-item label="作品客户">
             <el-input v-model="form.workClient" style="width: 340px;" />
           </el-form-item>
+          <el-form-item v-if="form.workId" label="团队">
+            <el-button
+              class="filter-item"
+              size="mini"
+              type="primary"
+              icon="el-icon-plus"
+              @click="addAuthor"
+            >
+              新增
+            </el-button>
+            <el-table :data="form.authors" style="display: block">
+              <el-table-column prop="staffTag" label="职能" width="100">
+                <template v-slot="scope">
+                  <el-input v-model="scope.row.staffTag" placeholder="职能" />
+                </template>
+              </el-table-column>
+              <el-table-column prop="staffName" label="姓名">
+                <template v-slot="scope">
+                  <!--                  <el-input v-model="scope.row.staffName" />-->
+                  <el-select
+                    v-model="scope.row.staffName"
+                    clearable
+                    size="small"
+                    placeholder="姓名"
+                    @change="staffNameChange($event, scope.$index)"
+                  >
+                    <el-option
+                      v-for="item in staffs"
+                      :key="item.staffId"
+                      :label="item.staffName"
+                      :value="item"
+                    />
+                  </el-select>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="80">
+                <template v-slot="scope">
+                  <el-button type="danger" icon="el-icon-delete" size="mini" @click.stop="staffFormDel(scope.$index)" />
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
-          <el-button :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
+          <el-button :loading="crud.status.cu === 2" type="primary" @click="onFormSubmit">确认</el-button>
         </div>
       </el-dialog>
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="workId" label="作品id" />
+        <el-table-column prop="workId" label="作品id" width="60" />
         <el-table-column prop="workName" label="作品英文名" />
         <el-table-column prop="workNameC" label="作品中文名" />
         <el-table-column prop="workDes" label="作品英文描述" />
         <el-table-column prop="workDesC" label="作品中文描述" />
-        <el-table-column prop="workType" label="作品类别">
+        <el-table-column prop="workType" label="作品类别" width="80">
           <template slot-scope="scope">
             <el-tag
               type="success"
@@ -95,8 +137,23 @@
           </template>
         </el-table-column>
         <el-table-column prop="workTags" label="作品标签" />
-        <el-table-column prop="category" label="作品发布年" />
+        <el-table-column prop="category" label="发布年" width="60" />
         <el-table-column prop="workClient" label="作品客户" />
+        <el-table-column prop="authorsCount" label="团队">
+          <template slot-scope="scope">
+            <div v-if="scope.row.authorsCount && Object.keys(scope.row.authorsCount).length != 0">
+              <div v-for="(v, k) in scope.row.authorsCount" :key="k">
+                <div class="staff_role">
+                  {{ k }}:
+                </div>
+                <div class="staff_name">
+                  {{ v }}
+                </div>
+              </div>
+            </div>
+            <div v-else>暂无</div>
+          </template>
+        </el-table-column>
         <el-table-column v-if="checkPer(['admin','studioWork:edit','studioWork:del'])" label="操作" width="150px" align="center">
           <template slot-scope="scope">
             <udOperation
@@ -119,8 +176,12 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
+import * as vue from 'vue'
 
-const defaultForm = { workId: null, workName: null, workType: null, workDes: null, workClient: null, workTags: null, workTagList: null, category: null, createTime: null, updateTime: null, workNameC: null, workDesC: null }
+import { initData } from '@/api/data'
+import { add, edit } from '@/api/StudioWorkStaff'
+
+const defaultForm = { workId: null, workName: null, workType: null, workDes: null, workClient: null, workTags: null, workTagList: null, category: null, createTime: null, updateTime: null, workNameC: null, workDesC: null, authors: null }
 export default {
   name: 'StudioWork',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -153,8 +214,15 @@ export default {
         { key: 'workType', display_name: '作品类别' },
         { key: 'workClient', display_name: '作品客户' },
         { key: 'workNameC', display_name: '作品中文名' }
-      ]
+      ],
+      staffs: []
     }
+  },
+  created() {
+    const staffUrl = 'api/studioStaff'
+    initData(staffUrl).then(res => {
+      this.staffs = res.content
+    })
   },
   methods: {
     // 钩子：在获取表格数据之前执行，false 则代表不获取数据
@@ -163,12 +231,48 @@ export default {
     },
     [CRUD.HOOK.afterRefresh]() {
       this.crud.data.forEach(item => {
-        item.workTagList = item.workTags.split(', ')
+        if (item.workTags) {
+          item.workTagList = item.workTags.split(', ')
+        }
+        if (item.authors) {
+          const authorsCount = {}
+          item.authors.forEach(item => {
+            if (!authorsCount[item.staffTag]) {
+              authorsCount[item.staffTag] = item.staffName
+            } else {
+              authorsCount[item.staffTag] += `/${item.staffName}`
+            }
+          })
+          vue.set(item, 'authorsCount', authorsCount)
+          item.authorsCount = authorsCount
+        }
       })
     },
     onTagsChange(e) {
-      console.log(e, this.form)
       this.form.workTags = e.reduce((a, b) => `${a}, ${b}`)
+    },
+    addAuthor() {
+      if (!this.form.authors) this.form.authors = []
+      this.form.authors.push({ isNew: true })
+    },
+    staffFormDel(i) {
+      this.form.authors.splice(i, 1)
+    },
+    staffNameChange(e, i) {
+      Object.assign(this.form.authors[i], e)
+    },
+    onFormSubmit() {
+      this.crud.submitCU()
+      const wid = this.form.workId
+      const authors = this.form.authors
+      authors.forEach(item => {
+        if (item.isNew) {
+          item.workId = wid
+          add(item).then(res => console.log(res))
+          return
+        }
+        edit(item).then(res => console.log(res))
+      })
     }
   }
 }

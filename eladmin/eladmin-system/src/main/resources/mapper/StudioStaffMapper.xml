@@ -13,7 +13,8 @@
     </resultMap>
 
     <resultMap id="WorkRoleResMap" type="me.zhengjie.modules.studio.domain.dto.StudioStaffWorkRoleDTO">
-        <id column="staff_id" property="staffId"/>
+        <id column="id" property="id"/>
+        <result column="staff_id" property="staffId"/>
         <result column="staff_name" property="staffName"/>
         <result column="staff_name_c" property="staffNameC"/>
         <result column="staff_title" property="staffTitle"/>
@@ -40,7 +41,7 @@
     </select>
 
     <sql id="Staff_Role_Column_List">
-        studio_staff.staff_id, staff_name, staff_name_c, staff_title, staff_tag
+        id, studio_staff.staff_id, staff_name, staff_name_c, staff_title, staff_tag
     </sql>
 
     <select id="findAllByWork" resultMap="WorkRoleResMap">

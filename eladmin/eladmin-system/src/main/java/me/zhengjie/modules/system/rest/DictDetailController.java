@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.DictDetail;
@@ -49,6 +50,7 @@ public class DictDetailController {
 
     @ApiOperation("查询字典详情")
     @GetMapping
+    @AnonymousAccess
     public ResponseEntity<PageResult<DictDetail>> queryDictDetail(DictDetailQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(dictDetailService.queryAll(criteria, page),HttpStatus.OK);
     }

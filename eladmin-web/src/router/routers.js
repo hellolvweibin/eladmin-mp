@@ -71,8 +71,8 @@ export const constantRouterMap = [
       {
         path: 'studio_staff',
         component: (resolve) => require(['@/views/studio/studio_staff/index'], resolve),
-        name: '员工管理',
-        meta: { title: '员工管理', icon: 'peoples' }
+        name: '团队管理',
+        meta: { title: '团队管理', icon: 'peoples' }
       },
       {
         path: 'studio_award',

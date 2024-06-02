@@ -4,10 +4,10 @@
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
         <!-- 搜索 -->
-        <label class="el-form-item-label">员工英文名</label>
-        <el-input v-model="query.staffName" clearable placeholder="员工英文名" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
-        <label class="el-form-item-label">员工中文名</label>
-        <el-input v-model="query.staffNameC" clearable placeholder="员工中文名" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <label class="el-form-item-label">成员英文名</label>
+        <el-input v-model="query.staffName" clearable placeholder="成员英文名" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <label class="el-form-item-label">成员中文名</label>
+        <el-input v-model="query.staffNameC" clearable placeholder="成员中文名" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <rrOperation :crud="crud" />
       </div>
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
@@ -15,16 +15,16 @@
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
-          <el-form-item label="员工英文名" prop="staffName">
+          <el-form-item label="成员英文名" prop="staffName">
             <el-input v-model="form.staffName" style="width: 300px;" />
           </el-form-item>
-          <el-form-item label="员工中文名" prop="staffNameC">
+          <el-form-item label="成员中文名" prop="staffNameC">
             <el-input v-model="form.staffNameC" style="width: 300px;" />
           </el-form-item>
-          <el-form-item label="员工职称" prop="staffTitle">
+          <el-form-item label="成员职称" prop="staffTitle">
             <el-input v-model="form.staffTitle" style="width: 300px;" />
           </el-form-item>
-          <el-form-item label="员工性别" prop="staffSex">
+          <el-form-item label="成员性别" prop="staffSex">
             <el-radio v-for="item in dict.studio_staff_sex" :key="item.id" v-model="form.staffSex" :label="item.value">{{ item.label }}</el-radio>
           </el-form-item>
 
@@ -37,10 +37,10 @@
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="staffId" label="员工id" />
-        <el-table-column prop="staffName" label="员工英文名" />
-        <el-table-column prop="staffNameC" label="员工中文名" />
-        <el-table-column prop="staffTitle" label="员工职称">
+        <el-table-column prop="staffId" label="成员id" />
+        <el-table-column prop="staffName" label="成员英文名" />
+        <el-table-column prop="staffNameC" label="成员中文名" />
+        <el-table-column prop="staffTitle" label="成员职称">
           <template slot-scope="scope">
             <el-tag
               type="success"
@@ -48,7 +48,7 @@
             >{{ scope.row.staffTitle }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="staffSex" label="员工性别">
+        <el-table-column prop="staffSex" label="成员性别">
           <template slot-scope="scope">
             {{ dict.label.studio_staff_sex[scope.row.staffSex] }}
           </template>
@@ -84,7 +84,7 @@ export default {
   mixins: [presenter(), header(), form(defaultForm), crud()],
   dicts: ['studio_staff_sex'],
   cruds() {
-    return CRUD({ title: '工作室员工', url: 'api/studioStaff', idField: 'staffId', sort: 'staffId,desc', crudMethod: { ...crudStudioStaff }})
+    return CRUD({ title: '工作室成员', url: 'api/studioStaff', idField: 'staffId', sort: 'staffId,desc', crudMethod: { ...crudStudioStaff }})
   },
   data() {
     return {
@@ -95,21 +95,21 @@ export default {
       },
       rules: {
         staffName: [
-          { required: true, message: '员工英文名不能为空', trigger: 'blur' }
+          { required: true, message: '成员英文名不能为空', trigger: 'blur' }
         ],
         staffNameC: [
-          { required: true, message: '员工中文名不能为空', trigger: 'blur' }
+          { required: true, message: '成员中文名不能为空', trigger: 'blur' }
         ],
         staffSex: [
-          { required: true, message: '员工性别不能为空', trigger: 'blur' }
+          { required: true, message: '成员性别不能为空', trigger: 'blur' }
         ],
         staffTitle: [
-          { required: true, message: '员工职称不能为空', trigger: 'blur' }
+          { required: true, message: '成员职称不能为空', trigger: 'blur' }
         ]
       },
       queryTypeOptions: [
-        { key: 'staffName', display_name: '员工英文名' },
-        { key: 'staffNameC', display_name: '员工中文名' }
+        { key: 'staffName', display_name: '成员英文名' },
+        { key: 'staffNameC', display_name: '成员中文名' }
       ]
     }
   },

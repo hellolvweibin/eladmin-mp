@@ -35,6 +35,9 @@
           <el-form-item label="奖项名称" prop="awardName">
             <el-input v-model="form.awardName" style="width: 350px;" />
           </el-form-item>
+          <el-form-item label="奖项中文名" prop="awardNameC">
+            <el-input v-model="form.awardNameC" style="width: 350px;" />
+          </el-form-item>
           <el-form-item label="奖项年份" prop="awardYear">
             <el-input v-model="form.awardYear" style="width: 187px;" />
           </el-form-item>
@@ -59,6 +62,7 @@
         <el-table-column type="selection" width="55" />
         <el-table-column prop="awardId" label="奖项id" />
         <el-table-column prop="awardName" label="奖项名称" />
+        <el-table-column prop="awardNameC" label="奖项中文名" />
         <el-table-column prop="partnerTag" label="奖项类别">
           <template slot-scope="scope">
             <el-tag
@@ -98,7 +102,7 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
-const defaultForm = { awardId: null, awardName: null, createTime: null, updateTime: null, awardTag: null, awardYear: null }
+const defaultForm = { awardId: null, awardName: null, awardNameC: null, createTime: null, updateTime: null, awardTag: null, awardYear: null }
 export default {
   name: 'StudioAward',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -117,6 +121,9 @@ export default {
       rules: {
         awardName: [
           { required: true, message: '奖项名称不能为空', trigger: 'blur' }
+        ],
+        awardNameC: [
+          { required: true, message: '中文名不能为空', trigger: 'blur' }
         ],
         awardTag: [
           { required: true, message: '奖项分类不能为空', trigger: 'blur' }

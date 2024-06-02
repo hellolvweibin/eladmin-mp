@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="me.zhengjie.modules.studio.domain.StudioAward">
         <id column="award_id" property="awardId"/>
         <result column="award_name" property="awardName"/>
+        <result column="award_name_c" property="awardNameC"/>
         <result column="award_tag" property="awardTag"/>
         <result column="award_year" property="awardYear"/>
         <result column="create_time" property="createTime"/>
@@ -11,7 +12,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        award_id, award_name, award_tag,award_year, create_time, update_time
+        award_id, award_name, award_name_c, award_tag,award_year, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">

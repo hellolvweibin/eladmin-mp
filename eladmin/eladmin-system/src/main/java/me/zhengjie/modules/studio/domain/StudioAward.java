@@ -42,6 +42,9 @@ public class StudioAward extends Base implements Serializable {
     @ApiModelProperty(value = "奖项名称")
     private String awardName;
 
+    @ApiModelProperty(value = "奖项中文名")
+    private String awardNameC;
+
     @ApiModelProperty(value = "奖项标签")
     private String awardTag;
 
